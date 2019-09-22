@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator
+package ru.vmochalov.memegenerator.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
