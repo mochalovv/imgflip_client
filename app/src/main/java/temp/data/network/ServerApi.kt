@@ -7,6 +7,8 @@ import ru.mobileup.leenk.data.network.response.AnythingResponse
 /**
  * Declares all api methods using Retrofit2's annotations
  */
+
+//todo: https://api.imgflip.com/
 interface ServerApi {
 
     // TODO: Temp
