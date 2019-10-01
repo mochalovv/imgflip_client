@@ -59,6 +59,7 @@ object Libs {
         private const val version = "1.6.0"
 
         const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
+        const val moshiAdapters = "com.squareup.moshi:moshi-adapters:$version"
 //        const val moshiKotlin
         // Json
 //        implementation "com.squareup.moshi:moshi-kotlin:1.6.0"

@@ -4,6 +4,8 @@ import ru.mobileup.leenk.extension.module
 import ru.mobileup.leenk.extension.single
 import ru.mobileup.leenk.ui.anything.AnythingPm
 import ru.mobileup.leenk.ui.main.MainPm
+import temp.ui.imageselection.ImageSelectionPm
+import temp.ui.imageselection.ImageSelectionScreen
 
 object PmModule {
 
@@ -12,5 +14,6 @@ object PmModule {
     fun create() = module {
         single { MainPm() }
         single { AnythingPm(getProperty(ANYTHING_NUMBER), get(), get()) }
+        factory { ImageSelectionPm(get(), get()) }
     }
 }

@@ -6,6 +6,6 @@ import ru.mobileup.leenk.extension.single
 object GatewayModule {
 
     fun create() = module {
-        single { AnythingGateway(get()) }
+        single { MemesGateway(get(), get()) }
     }
 }

@@ -6,9 +6,9 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.text
 import kotlinx.android.synthetic.main.screen_anything.view.*
 import ru.mobileup.leenk.KoinHelper
-import ru.mobileup.leenk.R
 import ru.mobileup.leenk.ui.PmModule
 import ru.mobileup.leenk.ui.common.Screen
+import ru.vmochalov.memegenerator.R
 
 // TODO: Temp
 class AnythingScreen(args: Bundle) : Screen<AnythingPm>(args) {

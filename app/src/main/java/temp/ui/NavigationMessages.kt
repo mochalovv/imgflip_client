@@ -6,3 +6,5 @@ class Back : NavigationMessage
 
 // TODO: Temp
 class OpenAnythingScreen(val number: Int) : NavigationMessage
+
+class OpenTemplateSelectionScreen : NavigationMessage

@@ -8,9 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import ru.mobileup.leenk.BuildConfig
 import ru.mobileup.leenk.extension.module
 import ru.mobileup.leenk.extension.single
+import ru.vmochalov.memegenerator.BuildConfig
+import temp.data.network.CurlLoggingInterceptor
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 

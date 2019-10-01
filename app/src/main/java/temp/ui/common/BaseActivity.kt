@@ -7,7 +7,7 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import ru.mobileup.leenk.extension.setRoot
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+//import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -19,9 +19,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected abstract val rootScreen: Controller?
 
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }
+//    override fun attachBaseContext(newBase: Context) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
