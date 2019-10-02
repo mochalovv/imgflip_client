@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
-import ru.mobileup.leenk.extension.visible
+import kotlinx.android.synthetic.main.item_image.view.*
 import ru.vmochalov.memegenerator.R
 import timber.log.Timber
 
@@ -27,7 +26,6 @@ class TemplatesAdapterDelegate(
         Timber.d("!! isForViewType()")
         return true
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
         Timber.d("!! onCreateViewHolder()")
@@ -56,29 +54,24 @@ class TemplatesAdapterDelegate(
             }
         }
 
-//        override val containerView: View?
-//            get() = view
-
         fun bind(item: TemplateItem) {
-
-            Timber.d("!! binding item: ${item.template.url}")
             this.item = item
 
             Glide
                 .with(containerView.context)
                 .load(item.template.url)
-                .apply(
-                    RequestOptions
-                        .circleCropTransform()
-                        .placeholder(android.R.color.holo_green_dark)
-                        .error(android.R.color.holo_orange_light)
-                )
                 .into(containerView.findViewById(R.id.image))
-//            Glide.get(containerView.context)
-//            containerView.image
 
-//            containerView.findViewById<View>(R.id.imageFrame).visible(item.selected)
+            containerView.imageFrame.setBackgroundColor(
+                containerView.resources.getColor(
+                    if (item.selected) {
+                        R.color.selected_template_background
+                    } else {
+                        R.color.template_background
+                    }
 
+                )
+            )
         }
     }
 

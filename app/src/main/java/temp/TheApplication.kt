@@ -1,15 +1,10 @@
-package ru.mobileup.leenk
+package temp
 
-//import com.crashlytics.android.Crashlytics
-//import com.crashlytics.android.core.CrashlyticsCore
-//import io.fabric.sdk.android.Fabric
 import android.app.Application
 import org.koin.android.ext.android.startKoin
+import ru.mobileup.leenk.allModules
 import ru.vmochalov.memegenerator.BuildConfig
 import timber.log.Timber
-
-//import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-
 
 class TheApplication : Application() {
 
@@ -18,8 +13,6 @@ class TheApplication : Application() {
 
         initKoin()
         initLogging()
-//        initCalligraphy()
-//        initFabric()
     }
 
     private fun initKoin() {
@@ -31,25 +24,5 @@ class TheApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
-
-    /**
-     * Sets default font to the whole application via Calligraphy library
-     */
-//    private fun initCalligraphy() {
-//        CalligraphyConfig.initDefault(
-//            CalligraphyConfig.Builder()
-//                .setDefaultFontPath(getString(R.string.font_main_regular))
-//                .setFontAttrId(R.attr.fontPath)
-//                .build()
-//        )
-//    }
-
-//    private fun initFabric() {
-//        val crashlytics = Crashlytics.Builder()
-//            .core(CrashlyticsCore.Builder().disabled(!BuildConfig.ENABLE_CRASHLYTICS).build())
-//            .build()
-//
-//        Fabric.with(Fabric.with(this, crashlytics))
-//    }
 
 }

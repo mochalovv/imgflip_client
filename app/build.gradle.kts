@@ -41,6 +41,8 @@ dependencies {
     implementation(Libs.AndroidX.recyclerview)
     implementation(Libs.AndroidX.core)
 
+    implementation("com.google.android.material:material:1.1.0-alpha10")
+
     implementation("io.reactivex.rxjava2:rxkotlin:2.3.0")
 
     implementation("org.koin:koin-android:0.9.3")
@@ -59,7 +61,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.6.1")
 
     // Lists
-    implementation("com.hannesdorfmann:adapterdelegates4:4.0.0")
+    implementation("com.hannesdorfmann:adapterdelegates4:4.2.0")
 //    implementation("com.hannesdorfmann:adapterdelegates3:3.0.1")
 
     implementation("androidx.core:core-ktx:1.2.0-alpha04")

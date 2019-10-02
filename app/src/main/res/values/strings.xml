@@ -2,5 +2,6 @@
     <string name="app_name">MemeGenerator</string>
 
     <!-- Image Selection screen -->
-    <string name="image_selection_title">Select Meme Image</string>
+    <string name="image_selection_title">Choose Meme Template</string>
+    <string name="is_next">Next</string>
 </resources>
