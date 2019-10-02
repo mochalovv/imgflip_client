@@ -17,9 +17,6 @@ android {
         testInstrumentationRunner = Libs.AndroidX.Test.instrumentationRunner
 
         buildConfigField("String", "SERVER_BASE_URL", "\"https://api.imgflip.com/\"")
-//        buildConfigField "String", "SERVER_BASE_URL", '"https://api.leenk.link:8087/v1/jsonrpc/"'
-        //todo: https://api.imgflip.com/
-
     }
     buildTypes {
         getByName("release") {
