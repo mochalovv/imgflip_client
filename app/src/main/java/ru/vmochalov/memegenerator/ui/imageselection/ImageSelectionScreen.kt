@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_template_selection.*
 import ru.vmochalov.memegenerator.KoinHelper
 import ru.vmochalov.memegenerator.R
@@ -19,16 +21,16 @@ import ru.vmochalov.memegenerator.ui.common.Screen
  */
 class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
-    private val templatesAdapter = object : AsyncListDifferDelegationAdapter<TemplateItem>(object :
-        DiffUtil.ItemCallback<TemplateItem>() {
-        override fun areItemsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-            return oldItem.template.id == newItem.template.id
-        }
+    private val templatesAdapter = object : AsyncListDifferDelegationAdapter<TemplateItem>(
+        object : DiffUtil.ItemCallback<TemplateItem>() {
+            override fun areItemsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
+                return oldItem.template.id == newItem.template.id
+            }
 
-        override fun areContentsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-            return oldItem.template.url == newItem.template.url && oldItem.selected == newItem.selected
+            override fun areContentsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
+                return oldItem.template.url == newItem.template.url && oldItem.selected == newItem.selected
+            }
         }
-    }
     ) {
         init {
             delegatesManager.addDelegate(
@@ -46,8 +48,6 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     override fun onInitView(view: View, savedViewState: Bundle?) {
         super.onInitView(view, savedViewState)
 
-        recyclerView
-
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -56,27 +56,23 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     }
 
     override fun onBindPresentationModel(view: View, pm: ImageSelectionPm) {
-        pm.templateItems bindTo {
-            templatesAdapter.items = it
-        }
+        pm.templateItems bindTo templatesAdapter::setItems
+        pm.selectedTemplate bindTo this::bindSelectedTemplate
+        pm.progressVisible bindTo progress.visibility()
 
-        pm.selectedTemplate bindTo {
-            bindSelectedTemplate(it)
-        }
+        nextButton.clicks() bindTo pm.nextClicks
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {
-        templateImage?.let {
-            Glide
-                .with(it.context)
-                .load(template.url)
-                .apply(
-                    RequestOptions()
-                        .error(R.drawable.ic_template_placeholder)
-                        .placeholder(R.drawable.ic_template_placeholder)
-                )
-                .into(it)
-        }
+        templateTitle.text = template.name
+
+        Glide
+            .with(templateImage.context)
+            .load(template.url)
+            .apply(
+                RequestOptions().error(R.drawable.ic_template_placeholder)
+            )
+            .into(templateImage)
     }
 
 }

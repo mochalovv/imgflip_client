@@ -8,3 +8,7 @@ class Back : NavigationMessage
 class OpenAnythingScreen(val number: Int) : NavigationMessage
 
 class OpenTemplateSelectionScreen : NavigationMessage
+
+class OpenLabelsScreen : NavigationMessage
+
+class OpenResultScreen : NavigationMessage

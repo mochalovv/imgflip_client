@@ -4,4 +4,12 @@
     <!-- Image Selection screen -->
     <string name="image_selection_title">Choose Meme Template</string>
     <string name="is_next">Next</string>
+
+    <!-- Labels screen -->
+    <string name="labels_title">Fill in labels</string>
+    <string name="labels_first_hint">First label</string>
+    <string name="labels_second_hint">Second label</string>
+    <string name="labels_next">Next</string>
+
+
 </resources>

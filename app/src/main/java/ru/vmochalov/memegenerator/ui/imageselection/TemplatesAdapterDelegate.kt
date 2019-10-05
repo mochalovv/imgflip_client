@@ -10,7 +10,6 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_image.*
 import ru.vmochalov.memegenerator.R
-import timber.log.Timber
 
 /**
  * Created by Vladimir Mochalov on 28.09.2019.
@@ -24,12 +23,10 @@ class TemplatesAdapterDelegate(
         items: MutableList<TemplateItem>,
         position: Int
     ): Boolean {
-        Timber.d("!! isForViewType()")
         return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        Timber.d("!! onCreateViewHolder()")
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
         )
@@ -40,7 +37,6 @@ class TemplatesAdapterDelegate(
         viewHolder: ViewHolder,
         payload: MutableList<Any>
     ) {
-        Timber.d("!! onBindViewHolder()")
         viewHolder.bind(item)
     }
 
@@ -71,11 +67,10 @@ class TemplatesAdapterDelegate(
             imageFrame.setBackgroundColor(
                 imageFrame.resources.getColor(
                     if (item.selected) {
-                        R.color.selected_template_background
+                        R.color.shadowed_background
                     } else {
                         R.color.template_background
                     }
-
                 )
             )
         }

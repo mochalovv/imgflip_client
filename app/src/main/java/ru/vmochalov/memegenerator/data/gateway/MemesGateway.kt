@@ -45,20 +45,24 @@ class MemesGateway(
         password: String,
         memeParams: MemeParams
     ): Single<GeneratedMeme> {
-        return api
-            .captionImage(
-                CaptionImageRequest(
-                    memeParams.templateId,
-                    username,
-                    password,
-                    memeParams.text0,
-                    memeParams.text1,
-                    memeParams.font
+        return if (memeParams.template == null) {
+            Single.error<GeneratedMeme>(Exception("Meme template id is not set"))
+        } else {
+            api
+                .captionImage(
+                    CaptionImageRequest(
+                        memeParams.template.id,
+                        username,
+                        password,
+                        memeParams.text0,
+                        memeParams.text1,
+                        memeParams.font
+                    )
                 )
-            )
-            .map { it.data?.toGeneratedMeme()!! }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                .map { it.data?.toGeneratedMeme()!! }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
     }
 
     fun getAnythingIp(): Single<ru.vmochalov.memegenerator.domain.ipreverse.Ip> =

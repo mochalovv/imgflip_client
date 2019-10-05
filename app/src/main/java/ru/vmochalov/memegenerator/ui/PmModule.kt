@@ -3,8 +3,9 @@ package ru.vmochalov.memegenerator.ui
 import ru.vmochalov.memegenerator.extension.module
 import ru.vmochalov.memegenerator.extension.single
 import ru.vmochalov.memegenerator.ui.anything.AnythingPm
-import ru.vmochalov.memegenerator.ui.main.MainPm
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionPm
+import ru.vmochalov.memegenerator.ui.labels.LabelsPm
+import ru.vmochalov.memegenerator.ui.main.MainPm
 
 object PmModule {
 
@@ -19,6 +20,7 @@ object PmModule {
                 get()
             )
         }
-        factory { ImageSelectionPm(get(), get()) }
+        factory { ImageSelectionPm(get(), get(), get()) }
+        factory { LabelsPm(get(), get()) }
     }
 }
