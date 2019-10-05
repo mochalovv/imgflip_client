@@ -20,4 +20,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="Link" parent="Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

@@ -12,7 +12,7 @@ import ru.vmochalov.memegenerator.ui.anything.AnythingScreen
 import ru.vmochalov.memegenerator.ui.common.BasePmActivity
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
-import timber.log.Timber
+import ru.vmochalov.memegenerator.ui.result.ResultScreen
 
 class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
 
@@ -35,9 +35,7 @@ class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
 
             is OpenLabelsScreen -> router.goTo(LabelsScreen())
 
-            is OpenResultScreen -> {
-                Timber.d("!! open result screen")
-            }
+            is OpenResultScreen -> router.goTo(ResultScreen())
 
             is Back -> if (!router.back()) finish()
         }

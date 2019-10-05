@@ -11,5 +11,12 @@
     <string name="labels_second_hint">Second label</string>
     <string name="labels_next">Next</string>
 
+    <!-- Result screen -->
+    <string name="result_title">Meme is ready!</string>
+    <string name="result_copy_to_clipboard">Copy link to clipboard</string>
+    <string name="result_save_to_gallety">Save meme to gallery</string>
+    <string name="result_one_more_meme">Create one more meme</string>
+    <string name="result_error">Can not generate meme</string>
+    <string name="result_retry">Try again</string>
 
 </resources>
