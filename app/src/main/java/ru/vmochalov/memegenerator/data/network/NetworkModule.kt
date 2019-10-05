@@ -8,16 +8,16 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import ru.vmochalov.memegenerator.BuildConfig
 import ru.vmochalov.memegenerator.extension.module
 import ru.vmochalov.memegenerator.extension.single
-import ru.vmochalov.memegenerator.BuildConfig
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 object NetworkModule {
 
     fun create() = module {
-        single { createApi<ServerApi>(get(), get(), BuildConfig.SERVER_BASE_URL) }
+        single { createApi<ServerApi>(get(), get(), BuildConfig.API_BASE_URL) }
         single { createOkHttpClient() }
     }
 

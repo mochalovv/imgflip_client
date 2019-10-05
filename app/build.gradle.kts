@@ -15,7 +15,9 @@ android {
         versionName = Versions.Application.versionName
         testInstrumentationRunner = Libs.AndroidX.Test.instrumentationRunner
 
-        buildConfigField("String", "SERVER_BASE_URL", "\"https://api.imgflip.com/\"")
+        buildConfigField("String", "API_BASE_URL", "\"https://api.imgflip.com/\"")
+        buildConfigField("String", "API_LOGIN", "\"mochalovv\"")
+        buildConfigField("String", "API_PASSWORD", "\"Pass_777\"")
     }
     buildTypes {
         getByName("release") {
