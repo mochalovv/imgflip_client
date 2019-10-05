@@ -15,7 +15,7 @@ object InteractorModule {
         factory { GetReversedIpInteractor(get()) }
         factory { LoadMemeTemplatesInteractor(get()) }
         factory { ClearMemeParamsInteractor(get()) }
-        factory { GenerateMemeInteractor(get()) }
+        factory { GenerateMemeInteractor(get(), get()) }
         factory { SelectMemeTemplateInteractor(get()) }
         factory { GetMemeParamsInteractor(get()) }
         factory { SetMemeLabelsInteractor(get()) }
