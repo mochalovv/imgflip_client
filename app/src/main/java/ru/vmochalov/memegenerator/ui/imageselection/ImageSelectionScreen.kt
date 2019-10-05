@@ -21,16 +21,16 @@ import ru.vmochalov.memegenerator.ui.common.Screen
  */
 class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
-    private val templatesAdapter = object : AsyncListDifferDelegationAdapter<TemplateItem>(object :
-        DiffUtil.ItemCallback<TemplateItem>() {
-        override fun areItemsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-            return oldItem.template.id == newItem.template.id
-        }
+    private val templatesAdapter = object : AsyncListDifferDelegationAdapter<TemplateItem>(
+        object : DiffUtil.ItemCallback<TemplateItem>() {
+            override fun areItemsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
+                return oldItem.template.id == newItem.template.id
+            }
 
-        override fun areContentsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-            return oldItem.template.url == newItem.template.url && oldItem.selected == newItem.selected
+            override fun areContentsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
+                return oldItem.template.url == newItem.template.url && oldItem.selected == newItem.selected
+            }
         }
-    }
     ) {
         init {
             delegatesManager.addDelegate(
@@ -48,8 +48,6 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     override fun onInitView(view: View, savedViewState: Bundle?) {
         super.onInitView(view, savedViewState)
 
-        recyclerView
-
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -58,14 +56,8 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     }
 
     override fun onBindPresentationModel(view: View, pm: ImageSelectionPm) {
-        pm.templateItems bindTo {
-            templatesAdapter.items = it
-        }
-
-        pm.selectedTemplate bindTo {
-            bindSelectedTemplate(it)
-        }
-
+        pm.templateItems bindTo templatesAdapter::setItems
+        pm.selectedTemplate bindTo this::bindSelectedTemplate
         pm.progressVisible bindTo progress.visibility()
 
         nextButton.clicks() bindTo pm.nextClicks

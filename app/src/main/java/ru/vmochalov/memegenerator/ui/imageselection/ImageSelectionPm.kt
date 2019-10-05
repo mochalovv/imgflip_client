@@ -38,8 +38,6 @@ class ImageSelectionPm(
     override fun onCreate() {
         super.onCreate()
 
-        clearMemeParamsInteractor.execute()
-
         loadMemeTemplatesInteractor.execute()
             .bindProgress(progressVisible.consumer)
             .doOnSuccess {
@@ -60,14 +58,21 @@ class ImageSelectionPm(
             .untilDestroy()
 
         nextClicks.observable
-            .firstOrError()
-            .flatMapCompletable { selectMemeTemplateInteractor.execute(selectedTemplate.value) }
-            .doOnComplete {
-                sendNavigationMessage(OpenLabelsScreen())
+            .flatMapCompletable {
+                selectMemeTemplateInteractor.execute(selectedTemplate.value)
+                    .doOnComplete {
+                        sendNavigationMessage(OpenLabelsScreen())
+                    }
             }
             .subscribe()
             .untilDestroy()
 
+    }
+
+    override fun onBind() {
+        super.onBind()
+
+        clearMemeParamsInteractor.execute()
     }
 
 }

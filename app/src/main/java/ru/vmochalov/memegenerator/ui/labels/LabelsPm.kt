@@ -29,19 +29,19 @@ class LabelsPm(
         getMemeParamsInteractor.execute()
             .filter { it.template != null }
             .map { it.template!! }
-            .firstOrError()
             .subscribe(template.consumer)
             .untilDestroy()
 
         nextClicks.observable
             .firstOrError()
             .flatMapCompletable {
-                setMemeLabelsInteractor.execute(
-                    firstLabel.text.value,
-                    secondLabel.text.value
-                )
+                setMemeLabelsInteractor
+                    .execute(
+                        firstLabel.text.value,
+                        secondLabel.text.value
+                    )
+                    .doOnComplete { sendNavigationMessage(OpenResultScreen()) }
             }
-            .doOnComplete { sendNavigationMessage(OpenResultScreen()) }
             .subscribe()
             .untilDestroy()
 
