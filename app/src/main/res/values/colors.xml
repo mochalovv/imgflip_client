@@ -6,6 +6,6 @@
 
     <color name="divider">#1F000000</color>
     <color name="template_background">@android:color/transparent</color>
-    <color name="selected_template_background">#66008577</color>
+    <color name="shadowed_background">#66008577</color>
 
 </resources>

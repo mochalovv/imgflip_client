@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_template_selection.*
 import ru.vmochalov.memegenerator.KoinHelper
 import ru.vmochalov.memegenerator.R
@@ -63,20 +65,22 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
         pm.selectedTemplate bindTo {
             bindSelectedTemplate(it)
         }
+
+        pm.progressVisible bindTo progress.visibility()
+
+        nextButton.clicks() bindTo pm.nextClicks
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {
-        templateImage?.let {
-            Glide
-                .with(it.context)
-                .load(template.url)
-                .apply(
-                    RequestOptions()
-                        .error(R.drawable.ic_template_placeholder)
-                        .placeholder(R.drawable.ic_template_placeholder)
-                )
-                .into(it)
-        }
+        templateTitle.text = template.name
+
+        Glide
+            .with(templateImage.context)
+            .load(template.url)
+            .apply(
+                RequestOptions().error(R.drawable.ic_template_placeholder)
+            )
+            .into(templateImage)
     }
 
 }
