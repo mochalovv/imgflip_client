@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_image.view.*
+import kotlinx.android.synthetic.main.item_image.*
 import ru.vmochalov.memegenerator.R
 import timber.log.Timber
 
@@ -60,10 +61,15 @@ class TemplatesAdapterDelegate(
             Glide
                 .with(containerView.context)
                 .load(item.template.url)
+                .apply(
+                    RequestOptions()
+                        .error(R.drawable.ic_template_placeholder)
+                        .placeholder(R.drawable.ic_template_placeholder)
+                )
                 .into(containerView.findViewById(R.id.image))
 
-            containerView.imageFrame.setBackgroundColor(
-                containerView.resources.getColor(
+            imageFrame.setBackgroundColor(
+                imageFrame.resources.getColor(
                     if (item.selected) {
                         R.color.selected_template_background
                     } else {

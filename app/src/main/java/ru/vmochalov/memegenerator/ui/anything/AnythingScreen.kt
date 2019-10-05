@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.text
-import kotlinx.android.synthetic.main.screen_anything.view.*
+import kotlinx.android.synthetic.main.screen_anything.*
 import ru.vmochalov.memegenerator.KoinHelper
+import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.ui.PmModule
 import ru.vmochalov.memegenerator.ui.common.Screen
-import ru.vmochalov.memegenerator.R
 
 // TODO: Temp
 class AnythingScreen(args: Bundle) : Screen<AnythingPm>(args) {
@@ -36,9 +36,9 @@ class AnythingScreen(args: Bundle) : Screen<AnythingPm>(args) {
 
     override fun onBindPresentationModel(view: View, pm: AnythingPm) {
 
-        pm.ip.observable.bindTo(view.anythingText.text())
-        pm.number.observable.bindTo(view.numberText.text())
+        pm.ip.observable.bindTo(anythingText.text())
+        pm.number.observable.bindTo(numberText.text())
 
-        view.numberText.clicks().bindTo(pm.numberClicks.consumer)
+        numberText.clicks().bindTo(pm.numberClicks.consumer)
     }
 }

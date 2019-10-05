@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    id("kotlin-android-extensions")
 }
 
 android {
@@ -27,6 +26,10 @@ android {
             )
         }
     }
+}
+
+androidExtensions {
+    isExperimental = true
 }
 
 dependencies {

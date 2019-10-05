@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import kotlinx.android.synthetic.main.screen_template_selection.view.*
+import kotlinx.android.synthetic.main.screen_template_selection.*
 import ru.vmochalov.memegenerator.KoinHelper
-import ru.vmochalov.memegenerator.ui.common.Screen
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import ru.vmochalov.memegenerator.ui.common.Screen
 
 /**
  * Created by Vladimir Mochalov on 28.09.2019.
@@ -45,7 +46,9 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     override fun onInitView(view: View, savedViewState: Bundle?) {
         super.onInitView(view, savedViewState)
 
-        with(view.recyclerView) {
+        recyclerView
+
+        with(recyclerView) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = templatesAdapter
@@ -63,10 +66,15 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {
-        view?.templateImage?.let {
+        templateImage?.let {
             Glide
                 .with(it.context)
                 .load(template.url)
+                .apply(
+                    RequestOptions()
+                        .error(R.drawable.ic_template_placeholder)
+                        .placeholder(R.drawable.ic_template_placeholder)
+                )
                 .into(it)
         }
     }
