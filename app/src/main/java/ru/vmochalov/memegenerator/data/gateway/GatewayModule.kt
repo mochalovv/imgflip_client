@@ -7,5 +7,6 @@ object GatewayModule {
 
     fun create() = module {
         single { MemesGateway(get(), get()) }
+        single { MemeParamsGateway(get()) }
     }
 }
