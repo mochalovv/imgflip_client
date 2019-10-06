@@ -4,6 +4,7 @@ import me.dmdev.rxpm.bindProgress
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.data.system.ClipboardHelper
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
+import ru.vmochalov.memegenerator.domain.SaveMemeToGalleryInteractor
 import ru.vmochalov.memegenerator.domain.meme.GenerateMemeInteractor
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.ui.OpenTemplateSelectionScreen
@@ -17,7 +18,8 @@ import timber.log.Timber
 class ResultPm(
     private val generateMemeInteractor: GenerateMemeInteractor,
     private val clipboardHelper: ClipboardHelper,
-    private val resourceHelper: ResourceHelper
+    private val resourceHelper: ResourceHelper,
+    private val saveMemeToGalleryInteractor: SaveMemeToGalleryInteractor
 ) : ScreenPm() {
 
     val meme = State<GeneratedMeme>()
@@ -31,7 +33,6 @@ class ResultPm(
     val saveToGalleryClicks = Action<Unit>()
     val newMemeClicks = Action<Unit>()
 
-    //    todo: make buttons work; add more edittexts for labels; add proper scrolling
     override fun onCreate() {
         super.onCreate()
 
@@ -72,7 +73,9 @@ class ResultPm(
             .untilDestroy()
 
         saveToGalleryClicks.observable
-            .doOnNext { Timber.d("!! save clicked") }
+            .switchMapCompletable { saveMemeToGalleryInteractor.execute(meme.value.url) }
+            .doOnError { Timber.e("!! error: ${it.message}") }
+            .retry()
             .subscribe()
             .untilDestroy()
 

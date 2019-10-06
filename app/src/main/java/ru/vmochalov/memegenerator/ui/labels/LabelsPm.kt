@@ -33,7 +33,6 @@ class LabelsPm(
             .untilDestroy()
 
         nextClicks.observable
-            .firstOrError()
             .flatMapCompletable {
                 setMemeLabelsInteractor
                     .execute(
