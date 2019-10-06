@@ -1,9 +1,14 @@
 package ru.vmochalov.memegenerator.ui.main
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
+import org.koin.android.ext.android.inject
 import ru.vmochalov.memegenerator.KoinHelper
 import ru.vmochalov.memegenerator.R
+import ru.vmochalov.memegenerator.data.system.PermissionsHelper
 import ru.vmochalov.memegenerator.extension.back
 import ru.vmochalov.memegenerator.extension.goTo
 import ru.vmochalov.memegenerator.extension.setRoot
@@ -12,14 +17,21 @@ import ru.vmochalov.memegenerator.ui.anything.AnythingScreen
 import ru.vmochalov.memegenerator.ui.common.BasePmActivity
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
-import timber.log.Timber
+import ru.vmochalov.memegenerator.ui.result.ResultScreen
 
 class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
 
     override val activityLayout = R.layout.activity_main
     override val containerId = R.id.container
 
+    private val permissionHelper by inject<PermissionsHelper>()
     override val rootScreen = null //AnythingScreen.newInstance(4)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        permissionHelper.attach(this)
+    }
 
     override fun providePresentationModel() = KoinHelper.get<MainPm>()
 
@@ -35,12 +47,25 @@ class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
 
             is OpenLabelsScreen -> router.goTo(LabelsScreen())
 
-            is OpenResultScreen -> {
-                Timber.d("!! open result screen")
+            is OpenResultScreen -> router.goTo(ResultScreen())
+
+            is OpenUrl -> {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(message.url)
+                    )
+                )
             }
 
             is Back -> if (!router.back()) finish()
         }
         return true
+    }
+
+    override fun onDestroy() {
+        permissionHelper.detach()
+
+        super.onDestroy()
     }
 }

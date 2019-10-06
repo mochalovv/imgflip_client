@@ -8,5 +8,8 @@ object SystemModule {
 
     fun create() = module {
         single { ResourceHelper(context) }
+        single { ClipboardHelper(context) }
+        single { PermissionsHelper() }
+        single { ImageDownloadHelper(context) }
     }
 }

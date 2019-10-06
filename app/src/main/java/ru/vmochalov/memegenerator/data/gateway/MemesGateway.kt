@@ -3,12 +3,12 @@ package ru.vmochalov.memegenerator.data.gateway
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import ru.vmochalov.memegenerator.BuildConfig
 import ru.vmochalov.memegenerator.data.network.ServerApi
 import ru.vmochalov.memegenerator.data.network.dto.Ip
 import ru.vmochalov.memegenerator.data.network.dto.toGeneratedMeme
 import ru.vmochalov.memegenerator.data.network.dto.toIp
 import ru.vmochalov.memegenerator.data.network.dto.toMemeTemplate
-import ru.vmochalov.memegenerator.data.network.request.CaptionImageRequest
 import ru.vmochalov.memegenerator.data.storage.MemeTemplatesStorage
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.domain.meme.MemeParams
@@ -41,8 +41,6 @@ class MemesGateway(
     }
 
     fun captionImage(
-        username: String,
-        password: String,
         memeParams: MemeParams
     ): Single<GeneratedMeme> {
         return if (memeParams.template == null) {
@@ -50,14 +48,11 @@ class MemesGateway(
         } else {
             api
                 .captionImage(
-                    CaptionImageRequest(
-                        memeParams.template.id,
-                        username,
-                        password,
-                        memeParams.text0,
-                        memeParams.text1,
-                        memeParams.font
-                    )
+                    BuildConfig.API_LOGIN,
+                    BuildConfig.API_PASSWORD,
+                    memeParams.template.id,
+                    memeParams.text0,
+                    memeParams.text1
                 )
                 .map { it.data?.toGeneratedMeme()!! }
                 .subscribeOn(Schedulers.io())

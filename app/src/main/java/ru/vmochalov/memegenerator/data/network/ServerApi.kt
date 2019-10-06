@@ -1,13 +1,11 @@
 package ru.vmochalov.memegenerator.data.network
 
 import io.reactivex.Single
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
-import ru.vmochalov.memegenerator.data.network.response.AnythingResponse
-import ru.vmochalov.memegenerator.data.network.request.CaptionImageRequest
+import retrofit2.http.Query
 import ru.vmochalov.memegenerator.data.network.dto.CaptionImage
 import ru.vmochalov.memegenerator.data.network.dto.Memes
+import ru.vmochalov.memegenerator.data.network.response.AnythingResponse
 import ru.vmochalov.memegenerator.data.network.response.BaseResponse
 
 /**
@@ -23,7 +21,14 @@ interface ServerApi {
     @GET("get_memes")
     fun getMemes(): Single<BaseResponse<Memes>>
 
-    @POST("caption_image")
-    fun captionImage(@Body request: CaptionImageRequest): Single<BaseResponse<CaptionImage>>
+    @GET("caption_image")
+    fun captionImage(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("template_id") templateId: String,
+        @Query("text0") firstLabel: String,
+        @Query("text1") secondLabel: String
+    ): Single<BaseResponse<CaptionImage>>
+
 }
 
