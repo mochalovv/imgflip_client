@@ -12,3 +12,5 @@ class OpenTemplateSelectionScreen : NavigationMessage
 class OpenLabelsScreen : NavigationMessage
 
 class OpenResultScreen : NavigationMessage
+
+class OpenUrl(val url: String) : NavigationMessage

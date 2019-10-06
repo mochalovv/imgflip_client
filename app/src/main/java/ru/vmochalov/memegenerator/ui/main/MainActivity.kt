@@ -1,5 +1,7 @@
 package ru.vmochalov.memegenerator.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.KoinHelper
@@ -36,6 +38,15 @@ class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
             is OpenLabelsScreen -> router.goTo(LabelsScreen())
 
             is OpenResultScreen -> router.goTo(ResultScreen())
+
+            is OpenUrl -> {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(message.url)
+                    )
+                )
+            }
 
             is Back -> if (!router.back()) finish()
         }

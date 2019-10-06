@@ -18,5 +18,10 @@
     <string name="result_one_more_meme">Create one more meme</string>
     <string name="result_error">Can not generate meme</string>
     <string name="result_retry">Try again</string>
+    <string name="result_clipboard_label">Meme url</string>
+
+    <!-- Clipboard -->
+    <string name="clipboard_confirmation_template">%s has been copied to clipboard</string>
+
 
 </resources>

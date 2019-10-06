@@ -23,6 +23,6 @@ object PmModule {
         }
         factory { ImageSelectionPm(get(), get(), get()) }
         factory { LabelsPm(get(), get()) }
-        factory { ResultPm(get()) }
+        factory { ResultPm(get(), get(), get()) }
     }
 }

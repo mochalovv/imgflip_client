@@ -26,8 +26,9 @@ class ResultScreen : Screen<ResultPm>() {
         pm.progressVisible bindTo progress.visibility()
         pm.retryButtonVisible bindTo errorGroup.visibility()
 
+        link.clicks() bindTo pm.urlClicks
         retryButton.clicks() bindTo pm.retryClicks
-        copyButton.clicks() bindTo pm.copyClicks
+        copyButton.clicks() bindTo pm.copyUrlClicks
         newMemeButton.clicks() bindTo pm.newMemeClicks
         saveToGalleryButton.clicks() bindTo pm.saveToGalleryClicks
     }
