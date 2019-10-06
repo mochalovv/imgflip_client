@@ -20,7 +20,7 @@ class ClipboardHelper(private val context: Context) {
         Toast
             .makeText(
                 context,
-                context.getString(R.string.clipboard_confirmation_template, label),
+                context.getString(R.string.result_clipboard_confirmation_template, label),
                 Toast.LENGTH_SHORT
             )
             .show()

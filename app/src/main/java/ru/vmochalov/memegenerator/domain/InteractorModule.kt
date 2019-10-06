@@ -19,5 +19,6 @@ object InteractorModule {
         factory { SelectMemeTemplateInteractor(get()) }
         factory { GetMemeParamsInteractor(get()) }
         factory { SetMemeLabelsInteractor(get()) }
+        factory { SaveMemeToGalleryInteractor(get(), get(), get()) }
     }
 }

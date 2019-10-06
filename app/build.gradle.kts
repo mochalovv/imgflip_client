@@ -4,6 +4,10 @@ plugins {
     kotlin("android.extensions")
 }
 
+repositories {
+    maven(url = "https://jitpack.io")
+}
+
 android {
     compileSdkVersion(Versions.Build.compileSdkVersion)
     buildToolsVersion = Versions.Build.buildToolsVersion
@@ -68,6 +72,8 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.2.0-alpha04")
 
+    // RxPermissions
+    implementation("com.github.tbruyelle:rxpermissions:0.10.2")
 
 //    implementation(Libs.Dagger.dagger)
 //    annotationProcessor(Libs.Dagger.annotationProcessor)
