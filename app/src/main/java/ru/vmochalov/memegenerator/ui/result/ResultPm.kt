@@ -33,6 +33,7 @@ class ResultPm(
     val saveToGalleryClicks = Action<Unit>()
     val newMemeClicks = Action<Unit>()
 
+    //    todo: add more edittexts for labels; add proper scrolling; add error dialogs; at least one label should not be empty
     override fun onCreate() {
         super.onCreate()
 
