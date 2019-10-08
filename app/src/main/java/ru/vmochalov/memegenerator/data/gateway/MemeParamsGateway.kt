@@ -37,8 +37,7 @@ class MemeParamsGateway(
             .firstOrError()
             .map {
                 it.copy(
-                    text0 = firstLabel,
-                    text1 = secondLabel
+                    labels = listOf(firstLabel, secondLabel)
                 )
             }
             .doOnSuccess {

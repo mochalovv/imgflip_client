@@ -18,6 +18,10 @@ class MemesGateway(
     private val memeTemplatesStorage: MemeTemplatesStorage
 ) {
 
+    companion object {
+        private const val BOXES_WITH_TEXT_PARAMETER_TEMPLATE = "boxes[%d][text]"
+    }
+
     fun getMemeTemplates(): Single<List<MemeTemplate>> {
         val cachedMemeTemplates = memeTemplatesStorage.getValueOrNull()
 
@@ -44,13 +48,18 @@ class MemesGateway(
         return if (memeParams.template == null) {
             Single.error<GeneratedMeme>(Exception("Meme template id is not set"))
         } else {
+            val boxes = memeParams.labels
+                .mapIndexed { index, label ->
+                    String.format(BOXES_WITH_TEXT_PARAMETER_TEMPLATE, index) to label
+                }
+                .toMap()
+
             api
                 .captionImage(
                     BuildConfig.API_LOGIN,
                     BuildConfig.API_PASSWORD,
                     memeParams.template.id,
-                    memeParams.text0,
-                    memeParams.text1
+                    boxes
                 )
                 .map { it.data?.toGeneratedMeme()!! }
                 .subscribeOn(Schedulers.io())

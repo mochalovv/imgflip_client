@@ -5,11 +5,9 @@ package ru.vmochalov.memegenerator.domain.meme
  */
 data class MemeParams(
     val template: MemeTemplate?,
-    val text0: String,
-    val text1: String,
-    val font: String?
+    val labels: List<String>
 ) {
     companion object {
-        val EMPTY_MEME_PARAMS = MemeParams(null, "", "", null)
+        val EMPTY_MEME_PARAMS = MemeParams(null, emptyList())
     }
 }
