@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.vmochalov.memegenerator.data.network.dto.CaptionImage
 import ru.vmochalov.memegenerator.data.network.dto.Memes
-import ru.vmochalov.memegenerator.data.network.response.AnythingResponse
 import ru.vmochalov.memegenerator.data.network.response.BaseResponse
 
 /**
@@ -13,10 +12,6 @@ import ru.vmochalov.memegenerator.data.network.response.BaseResponse
  */
 
 interface ServerApi {
-
-    // TODO: Temp
-    @GET("ip")
-    fun getAnything(): Single<AnythingResponse>
 
     @GET("get_memes")
     fun getMemes(): Single<BaseResponse<Memes>>
