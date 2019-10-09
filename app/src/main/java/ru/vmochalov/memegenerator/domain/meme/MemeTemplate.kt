@@ -8,5 +8,6 @@ data class MemeTemplate(
     val name: String,
     val url: String,
     val width: Int,
-    val height: Int
+    val height: Int,
+    val boxCount: Int
 )

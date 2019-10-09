@@ -32,12 +32,12 @@ class MemeParamsGateway(
             .ignoreElement()
     }
 
-    fun setLabels(firstLabel: String, secondLabel: String): Completable {
+    fun setLabels(labels: List<String>): Completable {
         return memeParamsStorage.get()
             .firstOrError()
             .map {
                 it.copy(
-                    labels = listOf(firstLabel, secondLabel)
+                    labels = labels
                 )
             }
             .doOnSuccess {

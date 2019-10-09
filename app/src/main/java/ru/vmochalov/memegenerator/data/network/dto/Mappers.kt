@@ -9,7 +9,8 @@ fun Meme.toMemeTemplate(): MemeTemplate {
         name,
         url,
         width,
-        height
+        height,
+        boxCount
     )
 }
 

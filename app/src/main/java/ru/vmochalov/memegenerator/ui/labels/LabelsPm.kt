@@ -15,11 +15,15 @@ class LabelsPm(
     private val setMemeLabelsInteractor: SetMemeLabelsInteractor
 ) : ScreenPm() {
 
+    companion object {
+        private const val LABELS_LIMIT = 5
+    }
+
     val template = State<MemeTemplate>()
+    val lastVisibleLabelIndex = template.observable.map { it.boxCount - 1 }
 
-    val firstLabel = inputControl()
-
-    val secondLabel = inputControl()
+    val labels = (0 until LABELS_LIMIT).map { inputControl() }
+    val labelsVisibilities = (0 until LABELS_LIMIT).map { State(false) }
 
     val nextClicks = Action<Unit>()
 
@@ -32,12 +36,22 @@ class LabelsPm(
             .subscribe(template.consumer)
             .untilDestroy()
 
+        template.observable
+            .map { it.boxCount }
+            .doOnNext { boxCount ->
+                labelsVisibilities.forEachIndexed { index, state ->
+                    state.consumer.accept(index < boxCount)
+                }
+            }
+            .subscribe()
+            .untilDestroy()
+
         nextClicks.observable
             .flatMapCompletable {
                 setMemeLabelsInteractor
                     .execute(
-                        firstLabel.text.value,
-                        secondLabel.text.value
+                        labels.map { it.text.value }
+                            .take(template.value.boxCount)
                     )
                     .doOnComplete { sendNavigationMessage(OpenResultScreen()) }
             }
