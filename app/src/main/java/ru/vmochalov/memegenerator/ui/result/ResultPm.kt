@@ -33,7 +33,7 @@ class ResultPm(
     val saveToGalleryClicks = Action<Unit>()
     val newMemeClicks = Action<Unit>()
 
-    //    todo: add proper scrolling; add error dialogs; at least one label should not be empty; add api error handling in gateway?
+    //    todo: add error dialogs; add api error handling in gateway?
     override fun onCreate() {
         super.onCreate()
 
