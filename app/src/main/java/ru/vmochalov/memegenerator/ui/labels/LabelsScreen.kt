@@ -52,6 +52,8 @@ class LabelsScreen : Screen<LabelsPm>() {
             state bindTo labelInputs[index].visibility()
         }
 
+        pm.nextButtonAvailability bindTo nextButton::setEnabled
+
         nextButton.clicks() bindTo pm.nextClicks
     }
 
