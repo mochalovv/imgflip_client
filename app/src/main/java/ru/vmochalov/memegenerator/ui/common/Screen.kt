@@ -41,7 +41,7 @@ abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
         super.onDestroyView(view)
 
         internalContainerView = null
-//        clearFil
+
         clearFindViewByIdCache()
     }
 

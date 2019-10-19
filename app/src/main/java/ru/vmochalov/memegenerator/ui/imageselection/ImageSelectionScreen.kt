@@ -1,7 +1,9 @@
 package ru.vmochalov.memegenerator.ui.imageselection
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +63,11 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
         pm.progressVisible bindTo progress.visibility()
 
         nextButton.clicks() bindTo pm.nextClicks
+
+        pm.errorDialog bindTo { message, _ ->
+            createErrorDialog(message)
+        }
+
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {
@@ -73,6 +80,17 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
                 RequestOptions().error(R.drawable.ic_template_placeholder)
             )
             .into(templateImage)
+    }
+
+
+    private fun createErrorDialog(message: String): Dialog {
+        return AlertDialog.Builder(context!!)
+            .setMessage(message)
+            .setPositiveButton(R.string.error_dialog_retry) { _, _ ->
+                passTo(presentationModel.retryClicks)
+            }
+            .setNegativeButton(R.string.error_dialog_close, null)
+            .create()
     }
 
 }

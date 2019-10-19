@@ -11,7 +11,7 @@ object PmModule {
 
     fun create() = module {
         single { MainPm() }
-        factory { ImageSelectionPm(get(), get(), get()) }
+        factory { ImageSelectionPm(get(), get(), get(), get()) }
         factory { LabelsPm(get(), get()) }
         factory { ResultPm(get(), get(), get(), get()) }
     }

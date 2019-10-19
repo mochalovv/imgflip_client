@@ -26,4 +26,9 @@
     <string name="result_clipboard_confirmation_template">%s has been copied to clipboard</string>
     <string name="result_permission_not_granted">Permission should be granted to save meme to gallery</string>
 
+    <!-- Error dialog -->
+    <string name="error_dialog_message">An error occurred while loading.</string>
+    <string name="error_dialog_close">Close</string>
+    <string name="error_dialog_retry">Retry</string>
+
 </resources>
