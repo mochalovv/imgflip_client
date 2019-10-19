@@ -1,6 +1,8 @@
 package ru.vmochalov.memegenerator.ui.result
 
+import me.dmdev.rxpm.action
 import me.dmdev.rxpm.bindProgress
+import me.dmdev.rxpm.state
 import me.dmdev.rxpm.widget.dialogControl
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.data.system.ClipboardHelper
@@ -22,14 +24,14 @@ class ResultPm(
     private val saveMemeToGalleryInteractor: SaveMemeToGalleryInteractor
 ) : ScreenPm() {
 
-    val meme = State<GeneratedMeme>()
-    val progressVisible = State(false)
+    val meme = state<GeneratedMeme>()
+    val progressVisible = state(false)
 
-    val retryClicks = Action<Unit>()
-    val urlClicks = Action<Unit>()
-    val copyUrlClicks = Action<Unit>()
-    val saveToGalleryClicks = Action<Unit>()
-    val newMemeClicks = Action<Unit>()
+    val retryClicks = action<Unit>()
+    val urlClicks = action<Unit>()
+    val copyUrlClicks = action<Unit>()
+    val saveToGalleryClicks = action<Unit>()
+    val newMemeClicks = action<Unit>()
 
     val loadingErrorDialog = dialogControl<String, Unit>()
     val galleryErrorDialog = dialogControl<String, Unit>()

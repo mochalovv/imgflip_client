@@ -1,6 +1,5 @@
 package ru.vmochalov.memegenerator.ui.labels
 
-import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.bumptech.glide.Glide
@@ -9,7 +8,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_labels.*
-import ru.vmochalov.memegenerator.KoinHelper
+import me.dmdev.rxpm.bindTo
+import me.dmdev.rxpm.widget.bindTo
+import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.ui.common.Screen
@@ -23,10 +24,10 @@ class LabelsScreen : Screen<LabelsPm>() {
 
     private lateinit var labelInputs: List<TextInputLayout>
 
-    override fun providePresentationModel() = KoinHelper.get<LabelsPm>()
+    override fun providePresentationModel() = get<LabelsPm>()
 
-    override fun onInitView(view: View, savedViewState: Bundle?) {
-        super.onInitView(view, savedViewState)
+    override fun onInitView() {
+        super.onInitView()
 
         labelInputs = listOf(
             firstLabelInput,
@@ -38,7 +39,7 @@ class LabelsScreen : Screen<LabelsPm>() {
     }
 
     override fun onBindPresentationModel(view: View, pm: LabelsPm) {
-        pm.template bindTo { bindTemplate(it) }
+        pm.template bindTo this::bindTemplate
 
         pm.lastVisibleLabelIndex bindTo {
             labelInputs[it].editText?.imeOptions = EditorInfo.IME_ACTION_DONE

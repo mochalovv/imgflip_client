@@ -1,60 +1,36 @@
 package ru.vmochalov.memegenerator.ui.common
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.*
-import me.dmdev.rxpm.PresentationModel
-import me.dmdev.rxpm.base.PmController
-import me.dmdev.rxpm.navigation.NavigationMessage
-import me.dmdev.rxpm.navigation.NavigationMessageHandler
+import me.dmdev.rxpm.Action
+import me.dmdev.rxpm.base.PmFragment
+import me.dmdev.rxpm.passTo
 import ru.vmochalov.memegenerator.R
 
 
-abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
-    PmController<PM>(bundle),
-    LayoutContainer,
-    NavigationMessageHandler {
-
-    protected val context: Context? get() = activity
-
-    // Holds the view to allow the usage of android extensions right after the view is inflated.
-    private var internalContainerView: View? = null
-
-    override val containerView: View? get() = internalContainerView
+abstract class Screen<PM : ScreenPm> : PmFragment<PM>() {
 
     protected abstract val screenLayout: Int
 
-    override fun createView(
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup,
+        container: ViewGroup?,
         savedViewState: Bundle?
-    ): View {
-        return inflater.inflate(screenLayout, container, false).also {
-            internalContainerView = it
-            onInitView(it, savedViewState)
-        }
+    ): View? {
+        return inflater.inflate(screenLayout, container, false)
     }
 
-    override fun onDestroyView(view: View) {
-        super.onDestroyView(view)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        onInitView()
 
-        internalContainerView = null
-
-        clearFindViewByIdCache()
+        super.onViewCreated(view, savedInstanceState)
     }
 
-    /**
-     * Use for views initialisation.
-     */
-    protected open fun onInitView(view: View, savedViewState: Bundle?) {
-        // Nothing by default
-    }
+    protected open fun onInitView() {}
 
     final override fun onBindPresentationModel(pm: PM) {
         onBindPresentationModel(view!!, pm)
@@ -62,26 +38,17 @@ abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
 
     abstract fun onBindPresentationModel(view: View, pm: PM)
 
-    override fun handleBack(): Boolean {
-        passTo(presentationModel.backAction.consumer)
-        return true
-    }
-
-    override fun handleNavigationMessage(message: NavigationMessage): Boolean {
-        return false
-    }
-
     protected fun createErrorDialog(
         message: String,
-        retryAction: PresentationModel.Action<Unit>? = null
+        retryAction: Action<Unit>? = null
     ): Dialog {
-        return AlertDialog.Builder(context!!)
+        return AlertDialog.Builder(view!!.context)
             .setMessage(message)
             .setNegativeButton(R.string.error_dialog_close, null)
             .apply {
                 if (retryAction != null) {
                     setPositiveButton(R.string.error_dialog_retry) { _, _ ->
-                        passTo(retryAction)
+                        Unit passTo (retryAction)
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package ru.vmochalov.memegenerator.ui.imageselection
 
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +10,9 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_template_selection.*
-import ru.vmochalov.memegenerator.KoinHelper
+import me.dmdev.rxpm.bindTo
+import me.dmdev.rxpm.widget.bindTo
+import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.ui.common.Screen
@@ -43,10 +44,10 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
     override val screenLayout = R.layout.screen_template_selection
 
-    override fun providePresentationModel() = KoinHelper.get<ImageSelectionPm>()
+    override fun providePresentationModel() = get<ImageSelectionPm>()
 
-    override fun onInitView(view: View, savedViewState: Bundle?) {
-        super.onInitView(view, savedViewState)
+    override fun onInitView() {
+        super.onInitView()
 
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
