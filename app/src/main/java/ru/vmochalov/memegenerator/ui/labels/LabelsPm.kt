@@ -53,12 +53,13 @@ class LabelsPm(
             .untilDestroy()
 
         nextClicks.observable
-            .flatMapCompletable {
+            .map {
+                labels.map { it.text.value }
+                    .take(template.value.boxCount)
+            }
+            .flatMapCompletable { visibleLabels ->
                 setMemeLabelsInteractor
-                    .execute(
-                        labels.map { it.text.value }
-                            .take(template.value.boxCount)
-                    )
+                    .execute(visibleLabels)
                     .doOnComplete { sendNavigationMessage(OpenResultScreen()) }
             }
             .subscribe()
