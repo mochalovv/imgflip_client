@@ -10,7 +10,7 @@ class SetMemeLabelsInteractor(
     private val memeParamsGateway: MemeParamsGateway
 ) {
 
-    fun execute(firstLabel: String, secondLabel: String): Completable {
-        return memeParamsGateway.setLabels(firstLabel, secondLabel)
+    fun execute(labels: List<String>): Completable {
+        return memeParamsGateway.setLabels(labels)
     }
 }

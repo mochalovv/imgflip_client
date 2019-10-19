@@ -1,5 +1,6 @@
 package ru.vmochalov.memegenerator.ui.labels
 
+import io.reactivex.rxkotlin.combineLatest
 import me.dmdev.rxpm.widget.inputControl
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.domain.memeparams.GetMemeParamsInteractor
@@ -15,11 +16,20 @@ class LabelsPm(
     private val setMemeLabelsInteractor: SetMemeLabelsInteractor
 ) : ScreenPm() {
 
+    companion object {
+        private const val LABELS_LIMIT = 5
+    }
+
     val template = State<MemeTemplate>()
 
-    val firstLabel = inputControl()
+    val lastVisibleLabelIndex = template.observable.map { it.boxCount - 1 }
 
-    val secondLabel = inputControl()
+    val labels = (0 until LABELS_LIMIT).map { inputControl() }
+
+    val labelsVisibilities = (0 until LABELS_LIMIT).map { State(false) }
+
+    val nextButtonAvailability = labels.map { it.text.observable }
+        .combineLatest { isNextButtonAvailable(it) }
 
     val nextClicks = Action<Unit>()
 
@@ -32,17 +42,41 @@ class LabelsPm(
             .subscribe(template.consumer)
             .untilDestroy()
 
+        template.observable
+            .map { it.boxCount }
+            .doOnNext { boxCount ->
+                labelsVisibilities.forEachIndexed { index, state ->
+                    state.consumer.accept(index < boxCount)
+                }
+            }
+            .subscribe()
+            .untilDestroy()
+
         nextClicks.observable
-            .flatMapCompletable {
+            .map {
+                labels.map { it.text.value }
+                    .take(template.value.boxCount)
+            }
+            .flatMapCompletable { visibleLabels ->
                 setMemeLabelsInteractor
-                    .execute(
-                        firstLabel.text.value,
-                        secondLabel.text.value
-                    )
+                    .execute(visibleLabels)
                     .doOnComplete { sendNavigationMessage(OpenResultScreen()) }
             }
             .subscribe()
             .untilDestroy()
 
+    }
+
+    private fun isNextButtonAvailable(labels: List<String>): Boolean {
+        var available = false
+
+        for (label in labels) {
+            if (label.isNotBlank()) {
+                available = true
+                break
+            }
+        }
+
+        return available
     }
 }

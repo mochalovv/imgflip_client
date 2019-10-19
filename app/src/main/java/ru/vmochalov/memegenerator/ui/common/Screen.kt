@@ -1,15 +1,19 @@
 package ru.vmochalov.memegenerator.ui.common
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
+import me.dmdev.rxpm.PresentationModel
 import me.dmdev.rxpm.base.PmController
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
+import ru.vmochalov.memegenerator.R
 
 
 abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
@@ -41,7 +45,7 @@ abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
         super.onDestroyView(view)
 
         internalContainerView = null
-//        clearFil
+
         clearFindViewByIdCache()
     }
 
@@ -67,4 +71,20 @@ abstract class Screen<PM : ScreenPm>(bundle: Bundle? = null) :
         return false
     }
 
+    protected fun createErrorDialog(
+        message: String,
+        retryAction: PresentationModel.Action<Unit>? = null
+    ): Dialog {
+        return AlertDialog.Builder(context!!)
+            .setMessage(message)
+            .setNegativeButton(R.string.error_dialog_close, null)
+            .apply {
+                if (retryAction != null) {
+                    setPositiveButton(R.string.error_dialog_retry) { _, _ ->
+                        passTo(retryAction)
+                    }
+                }
+            }
+            .create()
+    }
 }

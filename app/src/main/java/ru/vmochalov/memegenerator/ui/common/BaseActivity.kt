@@ -6,8 +6,6 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import ru.vmochalov.memegenerator.extension.setRoot
-//import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -17,10 +15,6 @@ abstract class BaseActivity : AppCompatActivity() {
     protected lateinit var router: Router
 
     protected abstract val rootScreen: Controller?
-
-//    override fun attachBaseContext(newBase: Context) {
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

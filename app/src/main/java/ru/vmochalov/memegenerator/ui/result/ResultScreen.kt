@@ -24,13 +24,22 @@ class ResultScreen : Screen<ResultPm>() {
     override fun onBindPresentationModel(view: View, pm: ResultPm) {
         pm.meme bindTo this::bindMeme
         pm.progressVisible bindTo progress.visibility()
-        pm.retryButtonVisible bindTo errorGroup.visibility()
 
         link.clicks() bindTo pm.urlClicks
-        retryButton.clicks() bindTo pm.retryClicks
         copyButton.clicks() bindTo pm.copyUrlClicks
         newMemeButton.clicks() bindTo pm.newMemeClicks
         saveToGalleryButton.clicks() bindTo pm.saveToGalleryClicks
+
+        pm.loadingErrorDialog bindTo { message, _ ->
+            createErrorDialog(
+                message,
+                pm.retryClicks
+            )
+        }
+
+        pm.galleryErrorDialog bindTo { message, _ ->
+            createErrorDialog(message)
+        }
     }
 
     private fun bindMeme(meme: GeneratedMeme) {

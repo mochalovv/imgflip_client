@@ -93,9 +93,4 @@ dependencies {
     implementation(Libs.Moshi.moshiAdapters)
     // okhttp 3
     // kotlin ktx
-
-    testImplementation(Libs.JUnit.junit)
-
-    androidTestImplementation(Libs.AndroidX.Test.runner)
-    androidTestImplementation(Libs.AndroidX.Test.espressoCore)
 }

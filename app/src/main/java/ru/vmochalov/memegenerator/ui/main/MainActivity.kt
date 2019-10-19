@@ -13,7 +13,6 @@ import ru.vmochalov.memegenerator.extension.back
 import ru.vmochalov.memegenerator.extension.goTo
 import ru.vmochalov.memegenerator.extension.setRoot
 import ru.vmochalov.memegenerator.ui.*
-import ru.vmochalov.memegenerator.ui.anything.AnythingScreen
 import ru.vmochalov.memegenerator.ui.common.BasePmActivity
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
@@ -25,7 +24,7 @@ class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
     override val containerId = R.id.container
 
     private val permissionHelper by inject<PermissionsHelper>()
-    override val rootScreen = null //AnythingScreen.newInstance(4)
+    override val rootScreen = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +40,6 @@ class MainActivity : BasePmActivity<MainPm>(), NavigationMessageHandler {
 
     override fun handleNavigationMessage(message: NavigationMessage): Boolean {
         when (message) {
-            is OpenAnythingScreen -> router.setRoot(AnythingScreen.newInstance(message.number))
-
             is OpenTemplateSelectionScreen -> router.setRoot(ImageSelectionScreen())
 
             is OpenLabelsScreen -> router.goTo(LabelsScreen())

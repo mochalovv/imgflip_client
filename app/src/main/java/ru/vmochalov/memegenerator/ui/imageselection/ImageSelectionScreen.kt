@@ -61,6 +61,14 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
         pm.progressVisible bindTo progress.visibility()
 
         nextButton.clicks() bindTo pm.nextClicks
+
+        pm.errorDialog bindTo { message, _ ->
+            createErrorDialog(
+                message,
+                presentationModel.retryClicks
+            )
+        }
+
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {

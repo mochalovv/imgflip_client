@@ -9,6 +9,5 @@ class MainPm : ScreenPm() {
         super.onCreate()
 
         sendNavigationMessage(OpenTemplateSelectionScreen())
-//        sendNavigationMessage(OpenAnythingScreen(777))
     }
 }
