@@ -1,6 +1,7 @@
 package ru.vmochalov.memegenerator.ui.result
 
 import me.dmdev.rxpm.bindProgress
+import me.dmdev.rxpm.widget.dialogControl
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.data.system.ClipboardHelper
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
@@ -10,7 +11,6 @@ import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.ui.OpenTemplateSelectionScreen
 import ru.vmochalov.memegenerator.ui.OpenUrl
 import ru.vmochalov.memegenerator.ui.common.ScreenPm
-import timber.log.Timber
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
@@ -23,9 +23,7 @@ class ResultPm(
 ) : ScreenPm() {
 
     val meme = State<GeneratedMeme>()
-
     val progressVisible = State(false)
-    val retryButtonVisible = State(false)
 
     val retryClicks = Action<Unit>()
     val urlClicks = Action<Unit>()
@@ -33,7 +31,10 @@ class ResultPm(
     val saveToGalleryClicks = Action<Unit>()
     val newMemeClicks = Action<Unit>()
 
-    //    todo: add error dialogs; add api error handling in gateway?
+    val loadingErrorDialog = dialogControl<String, Unit>()
+    val galleryErrorDialog = dialogControl<String, Unit>()
+
+    //    todo: add api error handling in gateway?
     override fun onCreate() {
         super.onCreate()
 
@@ -41,20 +42,14 @@ class ResultPm(
             .flatMapSingle {
                 generateMemeInteractor.execute()
                     .bindProgress(progressVisible.consumer)
-                    .doOnSubscribe {
-                        retryButtonVisible.consumer.accept(false)
-                    }
                     .doOnError {
-                        retryButtonVisible.consumer.accept(true)
+                        loadingErrorDialog.show(resourceHelper.getString(R.string.error_dialog_message))
                     }
-                    .doOnSuccess {
-                        meme.consumer.accept(it)
-                    }
+                    .doOnSuccess(meme.consumer)
             }
             .retry()
             .subscribe()
-
-        triggerMemeGeneration()
+            .untilDestroy()
 
         urlClicks.observable
             .doOnNext {
@@ -74,8 +69,14 @@ class ResultPm(
             .untilDestroy()
 
         saveToGalleryClicks.observable
-            .switchMapCompletable { saveMemeToGalleryInteractor.execute(meme.value.url) }
-            .doOnError { Timber.e("!! error: ${it.message}") }
+            .flatMapCompletable {
+                saveMemeToGalleryInteractor.execute(meme.value.url)
+            }
+            .doOnError {
+                galleryErrorDialog.show(
+                    it.message ?: resourceHelper.getString(R.string.result_gallery_error)
+                )
+            }
             .retry()
             .subscribe()
             .untilDestroy()
@@ -87,9 +88,10 @@ class ResultPm(
             .subscribe()
             .untilDestroy()
 
+        generateMeme()
     }
 
-    private fun triggerMemeGeneration() {
+    private fun generateMeme() {
         retryClicks.consumer.accept(Unit)
     }
 
