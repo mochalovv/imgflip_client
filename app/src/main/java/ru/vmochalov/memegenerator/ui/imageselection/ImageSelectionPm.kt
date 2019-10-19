@@ -23,7 +23,6 @@ class ImageSelectionPm(
 ) : ScreenPm() {
 
     val progressVisible = State<Boolean>()
-
     val selectedTemplate = State<MemeTemplate>()
     private val templates = State<List<MemeTemplate>>()
 
@@ -45,7 +44,7 @@ class ImageSelectionPm(
         super.onCreate()
 
         retryClicks.observable
-            .switchMapCompletable {
+            .flatMapCompletable {
                 loadMemeTemplatesInteractor.execute()
                     .bindProgress(progressVisible.consumer)
                     .doOnSuccess {
