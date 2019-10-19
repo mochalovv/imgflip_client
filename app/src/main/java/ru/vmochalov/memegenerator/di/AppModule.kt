@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator
+package ru.vmochalov.memegenerator.di
 
 import org.koin.dsl.module
 import ru.vmochalov.memegenerator.data.MoshiFactory

@@ -3,6 +3,7 @@ package ru.vmochalov.memegenerator
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.vmochalov.memegenerator.di.allModules
 import timber.log.Timber
 
 class TheApplication : Application() {

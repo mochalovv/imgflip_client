@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator.data.network
+package ru.vmochalov.memegenerator.di
 
 import com.squareup.moshi.Moshi
 import okhttp3.Interceptor
@@ -10,13 +10,21 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.vmochalov.memegenerator.BuildConfig
+import ru.vmochalov.memegenerator.data.network.CurlLoggingInterceptor
+import ru.vmochalov.memegenerator.data.network.ServerApi
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 object NetworkModule {
 
     fun create() = module {
-        single { createApi<ServerApi>(get(), get(), BuildConfig.API_BASE_URL) }
+        single {
+            createApi<ServerApi>(
+                get(),
+                get(),
+                BuildConfig.API_BASE_URL
+            )
+        }
         single { createOkHttpClient() }
     }
 

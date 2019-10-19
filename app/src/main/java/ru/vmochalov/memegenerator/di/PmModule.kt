@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator.ui
+package ru.vmochalov.memegenerator.di
 
 import org.koin.dsl.module
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionPm
