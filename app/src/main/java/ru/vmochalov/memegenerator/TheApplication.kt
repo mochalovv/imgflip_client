@@ -1,7 +1,8 @@
 package ru.vmochalov.memegenerator
 
 import android.app.Application
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class TheApplication : Application() {
@@ -14,7 +15,10 @@ class TheApplication : Application() {
     }
 
     private fun initKoin() {
-        startKoin(this, allModules())
+        startKoin {
+            androidContext(this@TheApplication)
+            modules(allModules())
+        }
     }
 
     private fun initLogging() {

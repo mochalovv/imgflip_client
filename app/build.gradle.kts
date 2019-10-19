@@ -51,7 +51,7 @@ dependencies {
 
     implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
 
-    implementation("org.koin:koin-android:0.9.3")
+    implementation("org.koin:koin-android:2.0.1")
     implementation("com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1")
 
     implementation("com.jakewharton.rxrelay2:rxrelay:2.1.1")

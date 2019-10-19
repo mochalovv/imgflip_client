@@ -1,15 +1,13 @@
 package ru.vmochalov.memegenerator.data.system
 
-import ru.vmochalov.memegenerator.extension.context
-import ru.vmochalov.memegenerator.extension.module
-import ru.vmochalov.memegenerator.extension.single
+import org.koin.dsl.module
 
 object SystemModule {
 
     fun create() = module {
-        single { ResourceHelper(context) }
-        single { ClipboardHelper(context) }
+        single { ResourceHelper(get()) }
+        single { ClipboardHelper(get()) }
         single { PermissionsHelper() }
-        single { ImageDownloadHelper(context) }
+        single { ImageDownloadHelper(get()) }
     }
 }

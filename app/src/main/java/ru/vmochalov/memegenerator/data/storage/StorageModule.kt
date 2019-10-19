@@ -1,7 +1,6 @@
 package ru.vmochalov.memegenerator.data.storage
 
-import ru.vmochalov.memegenerator.extension.module
-import ru.vmochalov.memegenerator.extension.single
+import org.koin.dsl.module
 
 object StorageModule {
 

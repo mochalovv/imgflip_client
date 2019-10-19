@@ -8,7 +8,7 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_result.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import ru.vmochalov.memegenerator.KoinHelper
+import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.extension.visible
@@ -21,7 +21,7 @@ class ResultScreen : Screen<ResultPm>() {
 
     override val screenLayout = R.layout.screen_result
 
-    override fun providePresentationModel() = KoinHelper.get<ResultPm>()
+    override fun providePresentationModel() = get<ResultPm>()
 
     override fun onBindPresentationModel(view: View, pm: ResultPm) {
         pm.meme bindTo this::bindMeme

@@ -1,6 +1,6 @@
 package ru.vmochalov.memegenerator.ui
 
-import ru.vmochalov.memegenerator.extension.module
+import org.koin.dsl.module
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionPm
 import ru.vmochalov.memegenerator.ui.labels.LabelsPm
 import ru.vmochalov.memegenerator.ui.result.ResultPm

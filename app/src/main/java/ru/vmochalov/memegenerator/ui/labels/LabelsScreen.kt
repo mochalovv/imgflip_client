@@ -10,7 +10,7 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_labels.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import ru.vmochalov.memegenerator.KoinHelper
+import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.ui.common.Screen
@@ -24,7 +24,7 @@ class LabelsScreen : Screen<LabelsPm>() {
 
     private lateinit var labelInputs: List<TextInputLayout>
 
-    override fun providePresentationModel() = KoinHelper.get<LabelsPm>()
+    override fun providePresentationModel() = get<LabelsPm>()
 
     override fun onInitView() {
         super.onInitView()
