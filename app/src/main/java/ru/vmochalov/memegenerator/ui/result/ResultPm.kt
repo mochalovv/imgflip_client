@@ -34,7 +34,6 @@ class ResultPm(
     val loadingErrorDialog = dialogControl<String, Unit>()
     val galleryErrorDialog = dialogControl<String, Unit>()
 
-    //    todo: add api error handling in gateway?
     override fun onCreate() {
         super.onCreate()
 
