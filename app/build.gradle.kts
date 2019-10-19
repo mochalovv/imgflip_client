@@ -47,25 +47,25 @@ dependencies {
     implementation(Libs.AndroidX.recyclerview)
     implementation(Libs.AndroidX.core)
 
-    implementation("com.google.android.material:material:1.1.0-alpha10")
+    implementation("com.google.android.material:material:1.1.0-beta01")
 
-    implementation("io.reactivex.rxjava2:rxkotlin:2.3.0")
+    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
 
     implementation("org.koin:koin-android:0.9.3")
     implementation("com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1")
 
-    implementation("com.jakewharton.rxrelay2:rxrelay:2.1.0")
+    implementation("com.jakewharton.rxrelay2:rxrelay:2.1.1")
 
     // RxPM
     implementation("me.dmdev.rxpm:rxpm:2.0")
 
     // Images
-    implementation("com.github.bumptech.glide:glide:4.6.1")
+    implementation("com.github.bumptech.glide:glide:4.10.0")
 
     // Lists
     implementation("com.hannesdorfmann:adapterdelegates4:4.2.0")
 
-    implementation("androidx.core:core-ktx:1.2.0-alpha04")
+    implementation("androidx.core:core-ktx:1.2.0-beta01")
 
     // RxPermissions
     implementation("com.github.tbruyelle:rxpermissions:0.10.2")
