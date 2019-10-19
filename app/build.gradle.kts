@@ -56,27 +56,19 @@ dependencies {
 
     implementation("com.jakewharton.rxrelay2:rxrelay:2.1.0")
 
-    // Conductor
-    implementation("com.bluelinelabs:conductor:2.1.5")
-    implementation("com.bluelinelabs:conductor-support:2.1.5")
-
     // RxPM
-    implementation("me.dmdev.rxpm:rxpm:1.2.3")
+    implementation("me.dmdev.rxpm:rxpm:2.0")
 
     // Images
     implementation("com.github.bumptech.glide:glide:4.6.1")
 
     // Lists
     implementation("com.hannesdorfmann:adapterdelegates4:4.2.0")
-//    implementation("com.hannesdorfmann:adapterdelegates3:3.0.1")
 
     implementation("androidx.core:core-ktx:1.2.0-alpha04")
 
     // RxPermissions
     implementation("com.github.tbruyelle:rxpermissions:0.10.2")
-
-//    implementation(Libs.Dagger.dagger)
-//    annotationProcessor(Libs.Dagger.annotationProcessor)
 
     implementation(Libs.OkHttp.okhttp)
 
@@ -91,6 +83,4 @@ dependencies {
 
     implementation(Libs.Moshi.moshiKotlin)
     implementation(Libs.Moshi.moshiAdapters)
-    // okhttp 3
-    // kotlin ktx
 }

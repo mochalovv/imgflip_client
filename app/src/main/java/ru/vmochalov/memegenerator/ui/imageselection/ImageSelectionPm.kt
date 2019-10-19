@@ -1,7 +1,9 @@
 package ru.vmochalov.memegenerator.ui.imageselection
 
 import io.reactivex.rxkotlin.Observables
+import me.dmdev.rxpm.action
 import me.dmdev.rxpm.bindProgress
+import me.dmdev.rxpm.state
 import me.dmdev.rxpm.widget.dialogControl
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
@@ -22,26 +24,29 @@ class ImageSelectionPm(
     private val resourceHelper: ResourceHelper
 ) : ScreenPm() {
 
-    val progressVisible = State<Boolean>()
-    val selectedTemplate = State<MemeTemplate>()
-    private val templates = State<List<MemeTemplate>>()
+    val progressVisible = state<Boolean>()
+    val selectedTemplate = state<MemeTemplate>()
+    val templateItems = state<List<TemplateItem>>()
+    private val templates = state<List<MemeTemplate>>()
 
-    val templateItems = Observables.combineLatest(
-        templates.observable,
-        selectedTemplate.observable
-    ) { templates, selectedTemplate ->
-        templates.map { TemplateItem(it, it.id == selectedTemplate.id) }
-    }
-
-    val templateSelectedClicks = Action<TemplateItem>()
-    val nextClicks = Action<Unit>()
-
-    val retryClicks = Action<Unit>()
+    val templateSelectedClicks = action<TemplateItem>()
+    val nextClicks = action<Unit>()
+    val retryClicks = action<Unit>()
 
     val errorDialog = dialogControl<String, Unit>()
 
     override fun onCreate() {
         super.onCreate()
+
+        Observables
+            .combineLatest(
+                templates.observable,
+                selectedTemplate.observable
+            ) { templates, selectedTemplate ->
+                templates.map { TemplateItem(it, it.id == selectedTemplate.id) }
+            }
+            .subscribe(templateItems.consumer)
+            .untilDestroy()
 
         retryClicks.observable
             .flatMapCompletable {

@@ -6,6 +6,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_result.*
+import me.dmdev.rxpm.bindTo
+import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.KoinHelper
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
