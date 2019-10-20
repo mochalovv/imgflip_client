@@ -8,20 +8,23 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_result.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.extension.visible
 import ru.vmochalov.memegenerator.ui.common.Screen
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
 class ResultScreen : Screen<ResultPm>() {
 
+    @Inject
+    protected lateinit var pm: ResultPm
+
     override val screenLayout = R.layout.screen_result
 
-    override fun providePresentationModel() = get<ResultPm>()
+    override fun providePresentationModel() = pm
 
     override fun onBindPresentationModel(view: View, pm: ResultPm) {
         pm.meme bindTo this::bindMeme

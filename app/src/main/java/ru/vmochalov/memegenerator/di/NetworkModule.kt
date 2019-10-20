@@ -1,32 +1,46 @@
 package ru.vmochalov.memegenerator.di
 
 import com.squareup.moshi.Moshi
+import dagger.Module
+import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.vmochalov.memegenerator.BuildConfig
+import ru.vmochalov.memegenerator.data.MoshiFactory
 import ru.vmochalov.memegenerator.data.network.CurlLoggingInterceptor
 import ru.vmochalov.memegenerator.data.network.ServerApi
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-object NetworkModule {
+@Module
+class NetworkModule {
 
-    fun create() = module {
-        single {
-            createApi<ServerApi>(
-                get(),
-                get(),
-                BuildConfig.API_BASE_URL
-            )
-        }
-        single { createOkHttpClient() }
+    @Provides
+    @Singleton
+    fun providesServerApi(client: OkHttpClient, moshi: Moshi): ServerApi {
+        return createApi(
+            client,
+            moshi,
+            BuildConfig.API_BASE_URL
+        )
     }
+
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        return createOkHttpClient()
+    }
+
+    @Provides
+    @Singleton
+    fun prodivesMoshiFacotry(): Moshi = MoshiFactory().create()
 
     private inline fun <reified T> createApi(
         client: OkHttpClient,

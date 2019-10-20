@@ -10,21 +10,24 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_labels.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.ui.common.Screen
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
 class LabelsScreen : Screen<LabelsPm>() {
 
+    @Inject
+    protected lateinit var pm: LabelsPm
+
     override val screenLayout = R.layout.screen_labels
 
     private lateinit var labelInputs: List<TextInputLayout>
 
-    override fun providePresentationModel() = get<LabelsPm>()
+    override fun providePresentationModel() = pm
 
     override fun onInitView() {
         super.onInitView()

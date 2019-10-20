@@ -12,10 +12,10 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_template_selection.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
 import ru.vmochalov.memegenerator.ui.common.Screen
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 28.09.2019.
@@ -42,9 +42,12 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
         }
     }
 
+    @Inject
+    protected lateinit var pm: ImageSelectionPm
+
     override val screenLayout = R.layout.screen_template_selection
 
-    override fun providePresentationModel() = get<ImageSelectionPm>()
+    override fun providePresentationModel() = pm
 
     override fun onInitView() {
         super.onInitView()

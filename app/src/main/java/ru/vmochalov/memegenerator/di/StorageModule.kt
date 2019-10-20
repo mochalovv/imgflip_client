@@ -1,13 +1,19 @@
 package ru.vmochalov.memegenerator.di
 
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 import ru.vmochalov.memegenerator.data.storage.MemeParamsStorage
 import ru.vmochalov.memegenerator.data.storage.MemeTemplatesStorage
+import javax.inject.Singleton
 
-object StorageModule {
+@Module
+class StorageModule {
 
-    fun create() = module {
-        single { MemeTemplatesStorage() }
-        single { MemeParamsStorage() }
-    }
+    @Provides
+    @Singleton
+    fun providesMemeTemplatesStorage(): MemeTemplatesStorage = MemeTemplatesStorage()
+
+    @Provides
+    @Singleton
+    fun providesMemeParamsStorage(): MemeParamsStorage = MemeParamsStorage()
 }

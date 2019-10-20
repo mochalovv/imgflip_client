@@ -3,8 +3,9 @@ package ru.vmochalov.memegenerator.data.system
 import androidx.fragment.app.FragmentActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
+import javax.inject.Inject
 
-class PermissionsHelper {
+class PermissionsHelper @Inject constructor() {
 
     private var rxPermissions: RxPermissions? = null
 
