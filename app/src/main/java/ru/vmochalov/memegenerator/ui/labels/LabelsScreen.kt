@@ -1,5 +1,6 @@
 package ru.vmochalov.memegenerator.ui.labels
 
+import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.bumptech.glide.Glide
@@ -11,7 +12,9 @@ import kotlinx.android.synthetic.main.screen_labels.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import ru.vmochalov.memegenerator.extension.hideKeyboard
 import ru.vmochalov.memegenerator.ui.common.Screen
 import javax.inject.Inject
 
@@ -28,6 +31,15 @@ class LabelsScreen : Screen<LabelsPm>() {
     private lateinit var labelInputs: List<TextInputLayout>
 
     override fun providePresentationModel() = pm
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        TheApplication
+            .getInstance()
+            .getMainActivityComponent()
+            .inject(this)
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onInitView() {
         super.onInitView()
@@ -71,6 +83,12 @@ class LabelsScreen : Screen<LabelsPm>() {
                 RequestOptions().error(R.drawable.ic_template_placeholder)
             )
             .into(templateImage)
+    }
+
+    override fun onDestroyView() {
+        nextButton.hideKeyboard()
+
+        super.onDestroyView()
     }
 
 }

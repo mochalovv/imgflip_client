@@ -1,5 +1,6 @@
 package ru.vmochalov.memegenerator.ui.result
 
+import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -9,6 +10,7 @@ import kotlinx.android.synthetic.main.screen_result.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.extension.visible
 import ru.vmochalov.memegenerator.ui.common.Screen
@@ -25,6 +27,15 @@ class ResultScreen : Screen<ResultPm>() {
     override val screenLayout = R.layout.screen_result
 
     override fun providePresentationModel() = pm
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        TheApplication
+            .getInstance()
+            .getMainActivityComponent()
+            .inject(this)
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onBindPresentationModel(view: View, pm: ResultPm) {
         pm.meme bindTo this::bindMeme

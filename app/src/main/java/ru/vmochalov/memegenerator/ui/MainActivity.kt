@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
-import ru.vmochalov.memegenerator.di.component.AppComponent
-import ru.vmochalov.memegenerator.di.component.DaggerMainActivityComponent
-import ru.vmochalov.memegenerator.di.component.MainActivityComponent
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
@@ -23,16 +21,14 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler {
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-//    private val mainActivityComponent : MainActivityComponent by lazy {
-//        DaggerMainActivityComponent.builder()
-//            .appComponent(AppComponent())
-//            .build()
-//
-//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        MainActivityComponent.cre
+        TheApplication
+            .getInstance()
+            .getMainActivityComponent()
+            .inject(this)
+
         setContentView(R.layout.activity_main)
 
         navigator = FragmentNavigator(
@@ -74,5 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler {
         permissionHelper.detach()
 
         super.onDestroy()
+
+        TheApplication.getInstance().clearMainActivityComponent()
     }
 }

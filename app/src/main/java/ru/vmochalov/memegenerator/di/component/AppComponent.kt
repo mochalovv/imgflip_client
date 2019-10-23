@@ -15,6 +15,13 @@ import ru.vmochalov.memegenerator.data.system.ImageDownloadHelper
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
 import ru.vmochalov.memegenerator.di.*
+import ru.vmochalov.memegenerator.domain.SaveMemeToGalleryInteractor
+import ru.vmochalov.memegenerator.domain.meme.GenerateMemeInteractor
+import ru.vmochalov.memegenerator.domain.meme.LoadMemeTemplatesInteractor
+import ru.vmochalov.memegenerator.domain.memeparams.ClearMemeParamsInteractor
+import ru.vmochalov.memegenerator.domain.memeparams.GetMemeParamsInteractor
+import ru.vmochalov.memegenerator.domain.memeparams.SelectMemeTemplateInteractor
+import ru.vmochalov.memegenerator.domain.memeparams.SetMemeLabelsInteractor
 import javax.inject.Singleton
 
 /**
@@ -26,7 +33,8 @@ import javax.inject.Singleton
         GatewayModule::class,
         NetworkModule::class,
         StorageModule::class,
-        SystemModule::class
+        SystemModule::class,
+        InteractorModule::class
     ]
 )
 @Singleton
@@ -57,5 +65,19 @@ interface AppComponent {
     fun memeParamsGateway(): MemeParamsGateway
 
     fun context(): Context
+
+    fun loadMemeTemplatesInteractor(): LoadMemeTemplatesInteractor
+
+    fun clearMemeParamsInteractor(): ClearMemeParamsInteractor
+
+    fun generateMemeInteractor(): GenerateMemeInteractor
+
+    fun selectMemeTemplateInteractor(): SelectMemeTemplateInteractor
+
+    fun getMemeParamsInteractor(): GetMemeParamsInteractor
+
+    fun setMemeLabelsInteractor(): SetMemeLabelsInteractor
+
+    fun saveMemeToGalleryInteractor(): SaveMemeToGalleryInteractor
 
 }
