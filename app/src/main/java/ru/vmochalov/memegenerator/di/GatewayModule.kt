@@ -1,13 +1,29 @@
 package ru.vmochalov.memegenerator.di
 
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 import ru.vmochalov.memegenerator.data.gateway.MemeParamsGateway
 import ru.vmochalov.memegenerator.data.gateway.MemesGateway
+import ru.vmochalov.memegenerator.data.network.ServerApi
+import ru.vmochalov.memegenerator.data.storage.MemeParamsStorage
+import ru.vmochalov.memegenerator.data.storage.MemeTemplatesStorage
+import javax.inject.Singleton
 
-object GatewayModule {
+@Module
+class GatewayModule {
 
-    fun create() = module {
-        single { MemesGateway(get(), get()) }
-        single { MemeParamsGateway(get()) }
-    }
+    @Provides
+    @Singleton
+    fun provideMemesGateway(
+        serverApi: ServerApi,
+        memeTemplatesStorage: MemeTemplatesStorage
+    ): MemesGateway = MemesGateway(serverApi, memeTemplatesStorage)
+
+    @Provides
+    @Singleton
+    fun providesMemeParamsGateway(
+        memeParamsStorage: MemeParamsStorage
+    ): MemeParamsGateway = MemeParamsGateway(
+        memeParamsStorage
+    )
 }

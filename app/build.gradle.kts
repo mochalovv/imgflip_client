@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
 }
 
 repositories {
@@ -51,10 +52,13 @@ dependencies {
 
     implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
 
-    implementation("org.koin:koin-android:2.0.1")
     implementation("com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1")
 
     implementation("com.jakewharton.rxrelay2:rxrelay:2.1.1")
+
+    // Dagger
+    implementation("com.google.dagger:dagger:2.24")
+    kapt("com.google.dagger:dagger-compiler:2.24")
 
     // RxPM
     implementation("me.dmdev.rxpm:rxpm:2.0")
@@ -83,4 +87,8 @@ dependencies {
 
     implementation(Libs.Moshi.moshiKotlin)
     implementation(Libs.Moshi.moshiAdapters)
+}
+
+kapt {
+    generateStubs = true
 }

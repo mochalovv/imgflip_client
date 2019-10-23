@@ -1,17 +1,38 @@
 package ru.vmochalov.memegenerator.di
 
-import org.koin.dsl.module
+import android.content.Context
+import dagger.Module
+import dagger.Provides
 import ru.vmochalov.memegenerator.data.system.ClipboardHelper
 import ru.vmochalov.memegenerator.data.system.ImageDownloadHelper
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
+import javax.inject.Singleton
 
-object SystemModule {
+@Module
+class SystemModule {
 
-    fun create() = module {
-        single { ResourceHelper(get()) }
-        single { ClipboardHelper(get()) }
-        single { PermissionsHelper() }
-        single { ImageDownloadHelper(get()) }
+    @Provides
+    @Singleton
+    fun providesResourceHelper(context: Context): ResourceHelper {
+        return ResourceHelper(context)
+    }
+
+    @Provides
+    @Singleton
+    fun providesClipboardHelper(context: Context): ClipboardHelper {
+        return ClipboardHelper(context)
+    }
+
+    @Provides
+    @Singleton
+    fun providesPermissionHelper(): PermissionsHelper {
+        return PermissionsHelper()
+    }
+
+    @Provides
+    @Singleton
+    fun providesImageDownloadHelper(context: Context): ImageDownloadHelper {
+        return ImageDownloadHelper(context)
     }
 }

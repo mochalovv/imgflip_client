@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
 
-class PermissionsHelper {
+class PermissionsHelper() {
 
     private var rxPermissions: RxPermissions? = null
 

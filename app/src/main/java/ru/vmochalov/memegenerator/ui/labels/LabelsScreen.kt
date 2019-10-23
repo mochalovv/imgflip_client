@@ -1,5 +1,6 @@
 package ru.vmochalov.memegenerator.ui.labels
 
+import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.bumptech.glide.Glide
@@ -10,21 +11,35 @@ import com.jakewharton.rxbinding2.view.visibility
 import kotlinx.android.synthetic.main.screen_labels.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
-import org.koin.android.ext.android.get
 import ru.vmochalov.memegenerator.R
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import ru.vmochalov.memegenerator.extension.hideKeyboard
 import ru.vmochalov.memegenerator.ui.common.Screen
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
 class LabelsScreen : Screen<LabelsPm>() {
 
+    @Inject
+    protected lateinit var pm: LabelsPm
+
     override val screenLayout = R.layout.screen_labels
 
     private lateinit var labelInputs: List<TextInputLayout>
 
-    override fun providePresentationModel() = get<LabelsPm>()
+    override fun providePresentationModel() = pm
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        TheApplication
+            .getInstance()
+            .getMainActivityComponent()
+            .inject(this)
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onInitView() {
         super.onInitView()
@@ -68,6 +83,12 @@ class LabelsScreen : Screen<LabelsPm>() {
                 RequestOptions().error(R.drawable.ic_template_placeholder)
             )
             .into(templateImage)
+    }
+
+    override fun onDestroyView() {
+        nextButton.hideKeyboard()
+
+        super.onDestroyView()
     }
 
 }

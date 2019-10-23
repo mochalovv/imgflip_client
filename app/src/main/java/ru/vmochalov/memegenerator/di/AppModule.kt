@@ -1,12 +1,18 @@
 package ru.vmochalov.memegenerator.di
 
-import org.koin.dsl.module
-import ru.vmochalov.memegenerator.data.MoshiFactory
+import android.content.Context
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
-object AppModule {
+@Module
+class AppModule(
+    private val context: Context
+) {
 
-    fun create() = module {
-        single { MoshiFactory().create() }
+    @Provides
+    @Singleton
+    fun providesContext(): Context {
+        return context
     }
-
 }
