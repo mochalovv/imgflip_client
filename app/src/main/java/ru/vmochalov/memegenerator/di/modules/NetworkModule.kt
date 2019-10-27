@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator.di
+package ru.vmochalov.memegenerator.di.modules
 
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -30,7 +30,6 @@ class NetworkModule {
             BuildConfig.API_BASE_URL
         )
     }
-
 
     @Provides
     @Singleton

@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.screen_result.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
-import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.extension.visible
+import ru.vmochalov.memegenerator.ui.MainActivity
 import ru.vmochalov.memegenerator.ui.common.Screen
 import javax.inject.Inject
 
@@ -29,10 +29,7 @@ class ResultScreen : Screen<ResultPm>() {
     override fun providePresentationModel() = pm
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        TheApplication
-            .getInstance()
-            .getMainActivityComponent()
-            .inject(this)
+        (activity as MainActivity).mainActivityComponent.inject(this)
 
         super.onCreate(savedInstanceState)
     }

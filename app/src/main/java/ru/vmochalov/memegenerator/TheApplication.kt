@@ -1,54 +1,19 @@
 package ru.vmochalov.memegenerator
 
 import android.app.Application
-import ru.vmochalov.memegenerator.di.*
-import ru.vmochalov.memegenerator.di.component.AppComponent
 import ru.vmochalov.memegenerator.di.component.DaggerAppComponent
-import ru.vmochalov.memegenerator.di.component.DaggerMainActivityComponent
-import ru.vmochalov.memegenerator.di.component.MainActivityComponent
+import ru.vmochalov.memegenerator.di.modules.AppModule
 import timber.log.Timber
 
 class TheApplication : Application() {
 
-    companion object {
-        private lateinit var instance: TheApplication
-
-        fun getInstance() = instance
-    }
-
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .appModule(AppModule(this))
-            .gatewayModule(GatewayModule())
-            .networkModule(NetworkModule())
-            .storageModule(StorageModule())
-            .systemModule(SystemModule())
-            .interactorModule(InteractorModule())
-            .build()
-    }
-
-    private var mainActivityComponent: MainActivityComponent? = null
-
-    fun getMainActivityComponent(): MainActivityComponent {
-        return mainActivityComponent ?: DaggerMainActivityComponent
-            .builder()
-            .appComponent(appComponent)
-            .pmModule(PmModule())
-            .build()
-            .also { mainActivityComponent = it }
-    }
-
-    fun clearMainActivityComponent() {
-        mainActivityComponent = null
-    }
+    val appComponent = DaggerAppComponent.builder()
+        .appModule(AppModule(this))
+        .build()
 
     override fun onCreate() {
         super.onCreate()
 
-        instance = this
-
-        initDagger()
         initLogging()
     }
 
@@ -56,10 +21,6 @@ class TheApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
-
-    private fun initDagger() {
-        appComponent.inject(this)
     }
 
 }

@@ -4,11 +4,14 @@ import io.reactivex.Completable
 import ru.vmochalov.memegenerator.data.storage.MemeParamsStorage
 import ru.vmochalov.memegenerator.domain.meme.MemeParams
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
-class MemeParamsGateway(
+@Singleton
+class MemeParamsGateway @Inject constructor(
     private val memeParamsStorage: MemeParamsStorage
 ) {
 

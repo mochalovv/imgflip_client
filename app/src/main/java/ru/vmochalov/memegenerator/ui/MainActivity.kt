@@ -9,6 +9,7 @@ import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
+import ru.vmochalov.memegenerator.di.component.MainActivityComponent
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
@@ -21,13 +22,17 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler {
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    lateinit var mainActivityComponent: MainActivityComponent
 
-        TheApplication
-            .getInstance()
-            .getMainActivityComponent()
-            .inject(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        mainActivityComponent = (application as TheApplication).appComponent
+            .mainActivityComponent()
+            .create()
+            .apply {
+                inject(this@MainActivity)
+            }
+
+        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
@@ -70,7 +75,5 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler {
         permissionHelper.detach()
 
         super.onDestroy()
-
-        TheApplication.getInstance().clearMainActivityComponent()
     }
 }

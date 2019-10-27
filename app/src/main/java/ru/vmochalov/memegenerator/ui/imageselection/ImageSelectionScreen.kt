@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.screen_template_selection.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
-import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import ru.vmochalov.memegenerator.ui.MainActivity
 import ru.vmochalov.memegenerator.ui.common.Screen
 import javax.inject.Inject
 
@@ -52,10 +52,7 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
     override fun providePresentationModel() = pm
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        TheApplication
-            .getInstance()
-            .getMainActivityComponent()
-            .inject(this)
+        (activity as MainActivity).mainActivityComponent.inject(this)
 
         super.onCreate(savedInstanceState)
     }
