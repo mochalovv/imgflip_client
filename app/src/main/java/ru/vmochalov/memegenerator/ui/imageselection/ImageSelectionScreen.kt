@@ -1,5 +1,6 @@
 package ru.vmochalov.memegenerator.ui.imageselection
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
@@ -10,12 +11,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.screen_template_selection.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
-import ru.vmochalov.memegenerator.ui.MainActivity
 import ru.vmochalov.memegenerator.ui.common.Screen
 import javax.inject.Inject
 
@@ -51,10 +52,10 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
     override fun providePresentationModel() = pm
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (activity as MainActivity).mainActivityComponent.inject(this)
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
 
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onInitView() {

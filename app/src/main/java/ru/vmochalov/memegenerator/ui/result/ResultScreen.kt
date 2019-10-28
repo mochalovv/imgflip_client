@@ -1,18 +1,18 @@
 package ru.vmochalov.memegenerator.ui.result
 
-import android.os.Bundle
+import android.content.Context
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.screen_result.*
 import me.dmdev.rxpm.bindTo
 import me.dmdev.rxpm.widget.bindTo
 import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.extension.visible
-import ru.vmochalov.memegenerator.ui.MainActivity
 import ru.vmochalov.memegenerator.ui.common.Screen
 import javax.inject.Inject
 
@@ -28,10 +28,10 @@ class ResultScreen : Screen<ResultPm>() {
 
     override fun providePresentationModel() = pm
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (activity as MainActivity).mainActivityComponent.inject(this)
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
 
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onBindPresentationModel(view: View, pm: ResultPm) {

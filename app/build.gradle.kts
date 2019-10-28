@@ -59,6 +59,10 @@ dependencies {
     // Dagger
     implementation("com.google.dagger:dagger:2.24")
     kapt("com.google.dagger:dagger-compiler:2.24")
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
+    kapt("com.google.dagger:dagger-android-processor:2.24") //todo: read about android injectors
+//    implementation("com.google.dagger:dagger-android:2.24")
+    implementation("com.google.dagger:dagger-android-support:2.24")
 
     // RxPM
     implementation("me.dmdev.rxpm:rxpm:2.0")

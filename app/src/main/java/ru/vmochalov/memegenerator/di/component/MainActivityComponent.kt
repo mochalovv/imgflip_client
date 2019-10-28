@@ -1,6 +1,11 @@
 package ru.vmochalov.memegenerator.di.component
 
 import dagger.Subcomponent
+import dagger.android.AndroidInjector
+//import ru.vmochalov.memegenerator.di.modules.FragmentsModule
+import ru.vmochalov.memegenerator.di.modules.ImageSelectionScreenModule
+import ru.vmochalov.memegenerator.di.modules.LabelsScreenModule
+import ru.vmochalov.memegenerator.di.modules.ResultScreenModule
 import ru.vmochalov.memegenerator.di.scopes.MainActivityScope
 import ru.vmochalov.memegenerator.ui.MainActivity
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
@@ -10,21 +15,30 @@ import ru.vmochalov.memegenerator.ui.result.ResultScreen
 /**
  * Created by Vladimir Mochalov on 19.10.2019.
  */
-@Subcomponent
 @MainActivityScope
-interface MainActivityComponent {
+@Subcomponent(modules = [ImageSelectionScreenModule::class, LabelsScreenModule::class, ResultScreenModule::class])
+interface MainActivityComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Factory
-    interface Factory {
-        fun create(): MainActivityComponent
-    }
+    interface MainActivityFactory : AndroidInjector.Factory<MainActivity>
+//    {
+//        fun create(): MainActivityComponent
+//    }
 
-    fun inject(mainActivity: MainActivity)
+    //todo: try to solve errors when compiling
+    @Subcomponent.Factory
+    interface ImageSelectionScreenFactory : AndroidInjector.Factory<ImageSelectionScreen>
+//    fun inject(mainActivity: MainActivity)
 
-    fun inject(screen: ImageSelectionScreen)
+//    fun inject(screen: ImageSelectionScreen)
 
-    fun inject(screen: LabelsScreen)
+    @Subcomponent.Factory
+    interface LabelsScreenFactory : AndroidInjector.Factory<LabelsScreen>
+//    fun inject(screen: LabelsScreen)
 
-    fun inject(screen: ResultScreen)
+    @Subcomponent.Factory
+    interface ResultScreenFactory : AndroidInjector.Factory<ResultScreen>
+
+//    fun inject(screen: ResultScreen)
 
 }

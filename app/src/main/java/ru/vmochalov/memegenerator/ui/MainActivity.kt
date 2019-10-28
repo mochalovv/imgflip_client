@@ -4,6 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
@@ -15,22 +19,30 @@ import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationMessageHandler {
+class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidInjector {
 
     private lateinit var navigator: FragmentNavigator
 
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-    lateinit var mainActivityComponent: MainActivityComponent
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+//    lateinit var mainActivityComponent: MainActivityComponent
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return androidInjector
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainActivityComponent = (application as TheApplication).appComponent
-            .mainActivityComponent()
-            .create()
-            .apply {
-                inject(this@MainActivity)
-            }
+        AndroidInjection.inject(this)
+//        mainActivityComponent = (application as TheApplication).appComponent
+//            .mainActivityComponent()
+//            .create()
+//            .apply {
+//                inject(this@MainActivity)
+//            }
 
         super.onCreate(savedInstanceState)
 
