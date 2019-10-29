@@ -5,7 +5,9 @@ import dagger.Module
 import dagger.android.AndroidInjector
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
-import ru.vmochalov.memegenerator.di.component.MainActivityComponent
+import ru.vmochalov.memegenerator.di.component.ImageSelectionSubcomponent
+import ru.vmochalov.memegenerator.di.component.LabelsScreenSubcomponent
+import ru.vmochalov.memegenerator.di.component.ResultScreenSubcomponent
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
@@ -13,32 +15,32 @@ import ru.vmochalov.memegenerator.ui.result.ResultScreen
 /**
  * Created by Vladimir Mochalov on 27.10.2019.
  */
-@Module(subcomponents = [MainActivityComponent::class])
+@Module(subcomponents = [ImageSelectionSubcomponent::class])
 abstract class ImageSelectionScreenModule {
 
     @Binds
     @IntoMap
     @ClassKey(ImageSelectionScreen::class)
-    abstract fun bindImageSelectionScreenInjectorFactory(factory: MainActivityComponent.ImageSelectionScreenFactory): AndroidInjector.Factory<out Any>
+    abstract fun bindImageSelectionScreenInjectorFactory(factory: ImageSelectionSubcomponent.Factory): AndroidInjector.Factory<out Any>
 
 
 }
 
-@Module(subcomponents = [MainActivityComponent::class])
+@Module(subcomponents = [LabelsScreenSubcomponent::class])
 abstract class LabelsScreenModule {
     @Binds
     @IntoMap
     @ClassKey(LabelsScreen::class)
-    abstract fun bindLabelsScreenInjectorFactory(factory: MainActivityComponent.LabelsScreenFactory): AndroidInjector.Factory<out Any>
+    abstract fun bindLabelsScreenInjectorFactory(factory: LabelsScreenSubcomponent.Factory): AndroidInjector.Factory<out Any>
 
 }
 
-@Module(subcomponents = [MainActivityComponent::class])
+@Module(subcomponents = [ResultScreenSubcomponent::class])
 abstract class ResultScreenModule {
     @Binds
     @IntoMap
     @ClassKey(ResultScreen::class)
-    abstract fun bindResultScreenInjectorFactory(factory: MainActivityComponent.ResultScreenFactory): AndroidInjector.Factory<out Any>
+    abstract fun bindResultScreenInjectorFactory(factory: ResultScreenSubcomponent.Factory): AndroidInjector.Factory<out Any>
 
 }
 

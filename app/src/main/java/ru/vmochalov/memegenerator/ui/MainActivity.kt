@@ -19,21 +19,21 @@ import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidInjector {
+class MainActivity : AppCompatActivity(), NavigationMessageHandler/*, HasAndroidInjector*/ {
 
     private lateinit var navigator: FragmentNavigator
 
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+//    @Inject
+//    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
 //    lateinit var mainActivityComponent: MainActivityComponent
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
-    }
+//    override fun androidInjector(): AndroidInjector<Any> {
+//        return androidInjector
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -54,9 +54,9 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidIn
             this
         )
 
-        if (savedInstanceState == null) {
-            navigator.setRoot(ImageSelectionScreen())
-        }
+//        if (savedInstanceState == null) {
+//            navigator.setRoot(ImageSelectionScreen())
+//        }
 
         permissionHelper.attach(this)
     }

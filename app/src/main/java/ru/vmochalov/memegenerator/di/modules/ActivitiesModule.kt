@@ -11,11 +11,11 @@ import ru.vmochalov.memegenerator.ui.MainActivity
 /**
  * Created by Vladimir Mochalov on 27.10.2019.
  */
-@Module(subcomponents = [MainActivityComponent::class])
+@Module//(subcomponents = [MainActivityComponent::class])
 abstract class ActivitiesModule {
 
     @Binds
     @IntoMap
     @ClassKey(MainActivity::class)
-    abstract fun bindAndroidInjectorFactory(factory: MainActivityComponent.MainActivityFactory): AndroidInjector.Factory<out Any>
+    abstract fun bindAndroidInjectorFactory(factory: MainActivityComponent.Factory): AndroidInjector.Factory<out Any>
 }

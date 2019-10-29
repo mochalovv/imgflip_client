@@ -1,9 +1,10 @@
 package ru.vmochalov.memegenerator.di.component
 
-import android.app.Application
 import android.content.Context
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
 import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
 import ru.vmochalov.memegenerator.di.modules.AppModule
@@ -24,11 +25,22 @@ import javax.inject.Singleton
     ]
 )
 @Singleton
-interface AppComponent {
+interface AppComponent : AndroidInjector<TheApplication> { //}: AndroidInjector<TheApplication> {
 
-    fun inject(application: Application)
+    @Component.Factory
+    abstract class Factory : AndroidInjector.Factory<TheApplication> {
+        override fun create(instance: TheApplication?): AndroidInjector<TheApplication> {
+            //todo: continue implementing
+            return
+        }
+    }
+//    {
+//
+//    }
 
-    fun mainActivityComponent(): MainActivityComponent.MainActivityFactory
+//    fun inject(application: TheApplication)
+
+//    fun mainActivityComponent(): MainActivityComponent.Factory
 
     fun serverApi(): ServerApi
 
