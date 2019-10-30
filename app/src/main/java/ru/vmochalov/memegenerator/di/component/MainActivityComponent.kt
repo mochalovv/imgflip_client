@@ -4,9 +4,10 @@ package ru.vmochalov.memegenerator.di.component
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
-import ru.vmochalov.memegenerator.di.modules.ImageSelectionScreenModule
-import ru.vmochalov.memegenerator.di.modules.LabelsScreenModule
-import ru.vmochalov.memegenerator.di.modules.ResultScreenModule
+import ru.vmochalov.memegenerator.di.modules.FragmentsModule
+//import ru.vmochalov.memegenerator.di.modules.ImageSelectionScreenModule
+//import ru.vmochalov.memegenerator.di.modules.LabelsScreenModule
+//import ru.vmochalov.memegenerator.di.modules.ResultScreenModule
 import ru.vmochalov.memegenerator.di.scopes.MainActivityScope
 import ru.vmochalov.memegenerator.ui.MainActivity
 
@@ -14,7 +15,8 @@ import ru.vmochalov.memegenerator.ui.MainActivity
  * Created by Vladimir Mochalov on 19.10.2019.
  */
 @MainActivityScope
-@Subcomponent(modules = [ActivitiesModule::class]) //, LabelsScreenModule::class, ResultScreenModule::class])
+//ActivitiesModule::class,
+@Subcomponent(modules = [FragmentsModule::class]) //, LabelsScreenModule::class, ResultScreenModule::class])
 interface MainActivityComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Factory

@@ -17,10 +17,16 @@ class TheApplication : Application(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
-        DaggerAppComponent.builder().appModule(AppModule(this)).networkModule(NetworkModule())
-            .build().inject(this)
-
         super.onCreate()
+
+        DaggerAppComponent.builder()
+            .setAppMdule(AppModule(this))
+            .setNetworkModule(NetworkModule())
+            .applicationBind(this)
+            .build()
+            .inject(this)
+
+
 
         initLogging()
     }

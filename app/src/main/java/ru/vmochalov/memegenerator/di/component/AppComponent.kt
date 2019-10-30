@@ -1,15 +1,13 @@
 package ru.vmochalov.memegenerator.di.component
 
 import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
-import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
-import ru.vmochalov.memegenerator.di.modules.AppModule
-import ru.vmochalov.memegenerator.di.modules.NetworkModule
-import ru.vmochalov.memegenerator.di.modules.SubcomponentsModule
+import ru.vmochalov.memegenerator.di.modules.*
 import javax.inject.Singleton
 
 /**
@@ -18,6 +16,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
+        AndroidSupportInjectionModule::class,
         ActivitiesModule::class,
         AppModule::class,
         NetworkModule::class,
@@ -25,15 +24,28 @@ import javax.inject.Singleton
     ]
 )
 @Singleton
-interface AppComponent : AndroidInjector<TheApplication> { //}: AndroidInjector<TheApplication> {
+interface AppComponent { //}: AndroidInjector<TheApplication> { //}: AndroidInjector<TheApplication> {
 
-    @Component.Factory
-    abstract class Factory : AndroidInjector.Factory<TheApplication> {
-        override fun create(instance: TheApplication?): AndroidInjector<TheApplication> {
-            //todo: continue implementing
-            return
-        }
+    fun inject(application: TheApplication)
+
+    @Component.Builder
+    interface Builder {
+        fun build(): AppComponent
+
+        fun setAppMdule(appModule: AppModule): Builder
+
+        fun setNetworkModule(networkModule: NetworkModule): Builder
+
+        @BindsInstance
+        fun applicationBind(application: TheApplication): Builder
     }
+//    @Component.Factory
+//    abstract class Factory : AndroidInjector.Factory<TheApplication> {
+//        override fun create(instance: TheApplication): AndroidInjector<TheApplication> {
+//            //todo: continue implementing
+//            return And
+//        }
+//    }
 //    {
 //
 //    }

@@ -8,32 +8,33 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.android.support.DaggerAppCompatActivity
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
-import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
-import ru.vmochalov.memegenerator.di.component.MainActivityComponent
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationMessageHandler/*, HasAndroidInjector*/ {
+class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidInjector {
 
     private lateinit var navigator: FragmentNavigator
 
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-//    @Inject
-//    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
 //    lateinit var mainActivityComponent: MainActivityComponent
 
-//    override fun androidInjector(): AndroidInjector<Any> {
-//        return androidInjector
-//    }
+    override fun androidInjector(): AndroidInjector<Any> {
+
+//        DaggerAppCompatActivity
+        return androidInjector
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -54,9 +55,10 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler/*, HasAndroid
             this
         )
 
-//        if (savedInstanceState == null) {
-//            navigator.setRoot(ImageSelectionScreen())
-//        }
+        if (savedInstanceState == null) {
+            val a = 1
+            navigator.setRoot(ImageSelectionScreen())
+        }
 
         permissionHelper.attach(this)
     }
