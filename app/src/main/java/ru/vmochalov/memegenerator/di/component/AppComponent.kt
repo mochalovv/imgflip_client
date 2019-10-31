@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
@@ -27,20 +28,15 @@ import javax.inject.Singleton
     ]
 )
 @Singleton
-interface AppComponent {
+interface AppComponent : AndroidInjector<TheApplication> {
 
-    fun inject(application: TheApplication)
-
-    @Component.Builder
-    interface Builder {
-        fun build(): AppComponent
-
-        fun setAppMdule(appModule: AppModule): Builder
-
-        fun setNetworkModule(networkModule: NetworkModule): Builder
-
-        @BindsInstance
-        fun applicationBind(application: TheApplication): Builder
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: TheApplication,
+            appModule: AppModule,
+            networkModule: NetworkModule
+        ): AppComponent
     }
 
     fun serverApi(): ServerApi

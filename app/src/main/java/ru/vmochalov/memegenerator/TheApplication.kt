@@ -18,14 +18,13 @@ class TheApplication : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder()
-            .setAppMdule(AppModule(this))
-            .setNetworkModule(NetworkModule())
-            .applicationBind(this)
-            .build()
+        DaggerAppComponent.factory()
+            .create(
+                this,
+                AppModule(this),
+                NetworkModule()
+            )
             .inject(this)
-
-
 
         initLogging()
     }
