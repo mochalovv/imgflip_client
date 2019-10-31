@@ -5,7 +5,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import ru.vmochalov.memegenerator.di.component.DaggerAppComponent
-//import ru.vmochalov.memegenerator.di.component.DaggerAppComponent
 import ru.vmochalov.memegenerator.di.modules.AppModule
 import ru.vmochalov.memegenerator.di.modules.NetworkModule
 import timber.log.Timber

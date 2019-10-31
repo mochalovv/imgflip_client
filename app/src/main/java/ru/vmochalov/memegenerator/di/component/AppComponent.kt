@@ -7,7 +7,10 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
 import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
-import ru.vmochalov.memegenerator.di.modules.*
+import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
+import ru.vmochalov.memegenerator.di.modules.AppModule
+import ru.vmochalov.memegenerator.di.modules.NetworkModule
+import ru.vmochalov.memegenerator.di.modules.SubcomponentsModule
 import javax.inject.Singleton
 
 /**
@@ -24,7 +27,7 @@ import javax.inject.Singleton
     ]
 )
 @Singleton
-interface AppComponent { //}: AndroidInjector<TheApplication> { //}: AndroidInjector<TheApplication> {
+interface AppComponent {
 
     fun inject(application: TheApplication)
 
@@ -39,20 +42,6 @@ interface AppComponent { //}: AndroidInjector<TheApplication> { //}: AndroidInje
         @BindsInstance
         fun applicationBind(application: TheApplication): Builder
     }
-//    @Component.Factory
-//    abstract class Factory : AndroidInjector.Factory<TheApplication> {
-//        override fun create(instance: TheApplication): AndroidInjector<TheApplication> {
-//            //todo: continue implementing
-//            return And
-//        }
-//    }
-//    {
-//
-//    }
-
-//    fun inject(application: TheApplication)
-
-//    fun mainActivityComponent(): MainActivityComponent.Factory
 
     fun serverApi(): ServerApi
 

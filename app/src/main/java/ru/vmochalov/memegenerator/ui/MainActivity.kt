@@ -8,7 +8,6 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import dagger.android.support.DaggerAppCompatActivity
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
@@ -28,22 +27,12 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidIn
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-//    lateinit var mainActivityComponent: MainActivityComponent
-
     override fun androidInjector(): AndroidInjector<Any> {
-
-//        DaggerAppCompatActivity
         return androidInjector
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
-//        mainActivityComponent = (application as TheApplication).appComponent
-//            .mainActivityComponent()
-//            .create()
-//            .apply {
-//                inject(this@MainActivity)
-//            }
 
         super.onCreate(savedInstanceState)
 
@@ -56,7 +45,6 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidIn
         )
 
         if (savedInstanceState == null) {
-            val a = 1
             navigator.setRoot(ImageSelectionScreen())
         }
 

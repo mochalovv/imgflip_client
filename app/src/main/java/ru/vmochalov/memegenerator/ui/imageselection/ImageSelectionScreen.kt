@@ -10,8 +10,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.view.visibility
-import dagger.android.AndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.screen_template_selection.*
 import me.dmdev.rxpm.bindTo
@@ -55,7 +53,6 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
-//        AndroidInjection.inject(this)
 
         super.onAttach(context)
     }
