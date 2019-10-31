@@ -57,12 +57,10 @@ dependencies {
     implementation("com.jakewharton.rxrelay2:rxrelay:2.1.1")
 
     // Dagger
-    implementation("com.google.dagger:dagger:2.24")
-    kapt("com.google.dagger:dagger-compiler:2.24")
-//    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
-    kapt("com.google.dagger:dagger-android-processor:2.24") //todo: read about android injectors
-//    implementation("com.google.dagger:dagger-android:2.24")
-    implementation("com.google.dagger:dagger-android-support:2.24")
+    implementation(Libs.Dagger.dagger)
+    implementation(Libs.Dagger.daggerAndroidSupport)
+    kapt(Libs.Dagger.daggerCompiler)
+    kapt(Libs.Dagger.daggerAndroidProcessor)
 
     // RxPM
     implementation("me.dmdev.rxpm:rxpm:2.0")
