@@ -5,7 +5,6 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
 import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
 import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
@@ -20,7 +19,6 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AndroidSupportInjectionModule::class,
         ActivitiesModule::class,
         AppModule::class,
         NetworkModule::class,
