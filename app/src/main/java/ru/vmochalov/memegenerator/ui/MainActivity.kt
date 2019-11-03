@@ -4,30 +4,37 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import me.dmdev.rxpm.navigation.NavigationMessage
 import me.dmdev.rxpm.navigation.NavigationMessageHandler
 import ru.vmochalov.memegenerator.R
-import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
 import ru.vmochalov.memegenerator.ui.imageselection.ImageSelectionScreen
 import ru.vmochalov.memegenerator.ui.labels.LabelsScreen
 import ru.vmochalov.memegenerator.ui.result.ResultScreen
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationMessageHandler {
+class MainActivity : AppCompatActivity(), NavigationMessageHandler, HasAndroidInjector {
 
     private lateinit var navigator: FragmentNavigator
 
     @Inject
     protected lateinit var permissionHelper: PermissionsHelper
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-        TheApplication
-            .getInstance()
-            .getMainActivityComponent()
-            .inject(this)
+    override fun androidInjector(): AndroidInjector<Any> {
+        return androidInjector
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+
+        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
@@ -70,7 +77,5 @@ class MainActivity : AppCompatActivity(), NavigationMessageHandler {
         permissionHelper.detach()
 
         super.onDestroy()
-
-        TheApplication.getInstance().clearMainActivityComponent()
     }
 }

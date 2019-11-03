@@ -13,11 +13,12 @@ import ru.vmochalov.memegenerator.domain.memeparams.ClearMemeParamsInteractor
 import ru.vmochalov.memegenerator.domain.memeparams.SelectMemeTemplateInteractor
 import ru.vmochalov.memegenerator.ui.OpenLabelsScreen
 import ru.vmochalov.memegenerator.ui.common.ScreenPm
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 28.09.2019.
  */
-class ImageSelectionPm(
+class ImageSelectionPm @Inject constructor(
     private val loadMemeTemplatesInteractor: LoadMemeTemplatesInteractor,
     private val selectMemeTemplateInteractor: SelectMemeTemplateInteractor,
     private val clearMemeParamsInteractor: ClearMemeParamsInteractor,

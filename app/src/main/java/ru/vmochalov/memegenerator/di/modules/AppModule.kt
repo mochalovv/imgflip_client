@@ -1,4 +1,4 @@
-package ru.vmochalov.memegenerator.di
+package ru.vmochalov.memegenerator.di.modules
 
 import android.content.Context
 import dagger.Module

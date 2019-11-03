@@ -6,11 +6,14 @@ import ru.vmochalov.memegenerator.R
 import ru.vmochalov.memegenerator.data.system.ImageDownloadHelper
 import ru.vmochalov.memegenerator.data.system.PermissionsHelper
 import ru.vmochalov.memegenerator.data.system.ResourceHelper
+import ru.vmochalov.memegenerator.di.scopes.MainActivityScope
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 06.10.2019.
  */
-class SaveMemeToGalleryInteractor(
+@MainActivityScope
+class SaveMemeToGalleryInteractor @Inject constructor(
     private val permissionsHelper: PermissionsHelper,
     private val imageDownloadHelper: ImageDownloadHelper,
     private val resourceHelper: ResourceHelper

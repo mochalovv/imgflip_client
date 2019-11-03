@@ -1,27 +1,16 @@
 package ru.vmochalov.memegenerator.di.component
 
-import android.app.Application
 import android.content.Context
-import com.squareup.moshi.Moshi
+import dagger.BindsInstance
 import dagger.Component
-import okhttp3.OkHttpClient
-import ru.vmochalov.memegenerator.data.gateway.MemeParamsGateway
-import ru.vmochalov.memegenerator.data.gateway.MemesGateway
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import ru.vmochalov.memegenerator.TheApplication
 import ru.vmochalov.memegenerator.data.network.ServerApi
-import ru.vmochalov.memegenerator.data.storage.MemeParamsStorage
-import ru.vmochalov.memegenerator.data.storage.MemeTemplatesStorage
-import ru.vmochalov.memegenerator.data.system.ClipboardHelper
-import ru.vmochalov.memegenerator.data.system.ImageDownloadHelper
-import ru.vmochalov.memegenerator.data.system.PermissionsHelper
-import ru.vmochalov.memegenerator.data.system.ResourceHelper
-import ru.vmochalov.memegenerator.di.*
-import ru.vmochalov.memegenerator.domain.SaveMemeToGalleryInteractor
-import ru.vmochalov.memegenerator.domain.meme.GenerateMemeInteractor
-import ru.vmochalov.memegenerator.domain.meme.LoadMemeTemplatesInteractor
-import ru.vmochalov.memegenerator.domain.memeparams.ClearMemeParamsInteractor
-import ru.vmochalov.memegenerator.domain.memeparams.GetMemeParamsInteractor
-import ru.vmochalov.memegenerator.domain.memeparams.SelectMemeTemplateInteractor
-import ru.vmochalov.memegenerator.domain.memeparams.SetMemeLabelsInteractor
+import ru.vmochalov.memegenerator.di.modules.ActivitiesModule
+import ru.vmochalov.memegenerator.di.modules.AppModule
+import ru.vmochalov.memegenerator.di.modules.NetworkModule
+import ru.vmochalov.memegenerator.di.modules.SubcomponentsModule
 import javax.inject.Singleton
 
 /**
@@ -29,55 +18,26 @@ import javax.inject.Singleton
  */
 @Component(
     modules = [
+        AndroidInjectionModule::class,
+        ActivitiesModule::class,
         AppModule::class,
-        GatewayModule::class,
         NetworkModule::class,
-        StorageModule::class,
-        SystemModule::class,
-        InteractorModule::class
+        SubcomponentsModule::class
     ]
 )
 @Singleton
-interface AppComponent {
+interface AppComponent : AndroidInjector<TheApplication> {
 
-    fun inject(application: Application)
-
-    fun memeTemplatesStorage(): MemeTemplatesStorage
-
-    fun memParamsStorage(): MemeParamsStorage
-
-    fun resourceHelper(): ResourceHelper
-
-    fun clipboardHelper(): ClipboardHelper
-
-    fun permissionHelper(): PermissionsHelper
-
-    fun imageDownloadHelper(): ImageDownloadHelper
-
-    fun moshi(): Moshi
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: TheApplication,
+            appModule: AppModule,
+            networkModule: NetworkModule
+        ): AppComponent
+    }
 
     fun serverApi(): ServerApi
 
-    fun okHttpClient(): OkHttpClient
-
-    fun memesGateway(): MemesGateway
-
-    fun memeParamsGateway(): MemeParamsGateway
-
     fun context(): Context
-
-    fun loadMemeTemplatesInteractor(): LoadMemeTemplatesInteractor
-
-    fun clearMemeParamsInteractor(): ClearMemeParamsInteractor
-
-    fun generateMemeInteractor(): GenerateMemeInteractor
-
-    fun selectMemeTemplateInteractor(): SelectMemeTemplateInteractor
-
-    fun getMemeParamsInteractor(): GetMemeParamsInteractor
-
-    fun setMemeLabelsInteractor(): SetMemeLabelsInteractor
-
-    fun saveMemeToGalleryInteractor(): SaveMemeToGalleryInteractor
-
 }

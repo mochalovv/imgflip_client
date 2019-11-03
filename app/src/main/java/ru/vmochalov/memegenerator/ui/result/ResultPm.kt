@@ -13,11 +13,12 @@ import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.ui.OpenTemplateSelectionScreen
 import ru.vmochalov.memegenerator.ui.OpenUrl
 import ru.vmochalov.memegenerator.ui.common.ScreenPm
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
-class ResultPm(
+class ResultPm @Inject constructor(
     private val generateMemeInteractor: GenerateMemeInteractor,
     private val clipboardHelper: ClipboardHelper,
     private val resourceHelper: ResourceHelper,

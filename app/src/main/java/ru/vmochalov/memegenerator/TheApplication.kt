@@ -1,65 +1,42 @@
 package ru.vmochalov.memegenerator
 
 import android.app.Application
-import ru.vmochalov.memegenerator.di.*
-import ru.vmochalov.memegenerator.di.component.AppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import ru.vmochalov.memegenerator.di.component.DaggerAppComponent
-import ru.vmochalov.memegenerator.di.component.DaggerMainActivityComponent
-import ru.vmochalov.memegenerator.di.component.MainActivityComponent
+import ru.vmochalov.memegenerator.di.modules.AppModule
+import ru.vmochalov.memegenerator.di.modules.NetworkModule
 import timber.log.Timber
+import javax.inject.Inject
 
-class TheApplication : Application() {
+class TheApplication : Application(), HasAndroidInjector {
 
-    companion object {
-        private lateinit var instance: TheApplication
-
-        fun getInstance() = instance
-    }
-
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .appModule(AppModule(this))
-            .gatewayModule(GatewayModule())
-            .networkModule(NetworkModule())
-            .storageModule(StorageModule())
-            .systemModule(SystemModule())
-            .interactorModule(InteractorModule())
-            .build()
-    }
-
-    private var mainActivityComponent: MainActivityComponent? = null
-
-    fun getMainActivityComponent(): MainActivityComponent {
-        return mainActivityComponent ?: DaggerMainActivityComponent
-            .builder()
-            .appComponent(appComponent)
-            .pmModule(PmModule())
-            .build()
-            .also { mainActivityComponent = it }
-    }
-
-    fun clearMainActivityComponent() {
-        mainActivityComponent = null
-    }
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
 
-        instance = this
+        DaggerAppComponent.factory()
+            .create(
+                this,
+                AppModule(this),
+                NetworkModule()
+            )
+            .inject(this)
 
-        initDagger()
         initLogging()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return dispatchingAndroidInjector
     }
 
     private fun initLogging() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
-
-    private fun initDagger() {
-        appComponent.inject(this)
     }
 
 }

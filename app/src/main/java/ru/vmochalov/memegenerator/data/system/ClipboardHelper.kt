@@ -5,8 +5,13 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
 import ru.vmochalov.memegenerator.R
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ClipboardHelper(private val context: Context) {
+@Singleton
+class ClipboardHelper @Inject constructor(
+    private val context: Context
+) {
 
     private val clipboardManager by lazy {
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

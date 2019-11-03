@@ -9,11 +9,12 @@ import ru.vmochalov.memegenerator.domain.memeparams.GetMemeParamsInteractor
 import ru.vmochalov.memegenerator.domain.memeparams.SetMemeLabelsInteractor
 import ru.vmochalov.memegenerator.ui.OpenResultScreen
 import ru.vmochalov.memegenerator.ui.common.ScreenPm
+import javax.inject.Inject
 
 /**
  * Created by Vladimir Mochalov on 05.10.2019.
  */
-class LabelsPm(
+class LabelsPm @Inject constructor(
     private val getMemeParamsInteractor: GetMemeParamsInteractor,
     private val setMemeLabelsInteractor: SetMemeLabelsInteractor
 ) : ScreenPm() {

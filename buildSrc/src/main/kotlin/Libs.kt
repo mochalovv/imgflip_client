@@ -38,33 +38,13 @@ object Libs {
         const val adapterRxJava = "com.squareup.retrofit2:adapter-rxjava2:$version"
 
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.10.0"
-
-
-//        const val
-//        // Networking
-//        implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-//        implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
-//
-
     }
-
-//    const val RETROFIT = "com.squareup.retrofit2:retrofit:${LibraryVersion.RETROFIT}"
-//    const val RETROFIT_MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${LibraryVersion.RETROFIT}"
-//    const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.LOGGING_INTERCEPTOR}"
 
     object Moshi {
         private const val version = "1.6.0"
 
         const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
         const val moshiAdapters = "com.squareup.moshi:moshi-adapters:$version"
-//        const val moshiKotlin
-        // Json
-//        implementation "com.squareup.moshi:moshi-kotlin:1.6.0"
-//        implementation "com.squareup.moshi:moshi-adapters:1.6.0"
-
     }
 
     object Timber {
@@ -75,13 +55,10 @@ object Libs {
         private const val version = "2.24"
 
         const val dagger = "com.google.dagger:dagger:$version"
+        const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:$version"
 
-//        val daggerAndroid = "com.google.dagger:dagger-android:$version"
-//        val daggerAndroidSupport =
-//            "com.google.dagger:dagger-android-support:$version" // if you use the support libraries
-
-        const val annotationProcessor =
-            "com.google.dagger:dagger-android-processor:$version" //annotationProcessor 'com.google.dagger:dagger-android-processor:2.x'
+        const val daggerCompiler = "com.google.dagger:dagger-compiler:$version"
+        const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:$version"
     }
 
     object JUnit {

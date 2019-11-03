@@ -14,11 +14,16 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import ru.vmochalov.memegenerator.R
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Vladimir Mochalov on 06.10.2019.
  */
-class ImageDownloadHelper(private val context: Context) {
+@Singleton
+class ImageDownloadHelper @Inject constructor(
+    private val context: Context
+) {
 
     fun saveToGallery(imageUrl: String): Completable {
         return loadBitmapFromUrl(imageUrl)

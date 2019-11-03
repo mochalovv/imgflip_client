@@ -11,9 +11,11 @@ import ru.vmochalov.memegenerator.data.storage.MemeTemplatesStorage
 import ru.vmochalov.memegenerator.domain.meme.GeneratedMeme
 import ru.vmochalov.memegenerator.domain.meme.MemeParams
 import ru.vmochalov.memegenerator.domain.meme.MemeTemplate
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class MemesGateway(
+@Singleton
+class MemesGateway @Inject constructor(
     private val api: ServerApi,
     private val memeTemplatesStorage: MemeTemplatesStorage
 ) {
