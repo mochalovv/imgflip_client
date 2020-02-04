@@ -1,7 +1,6 @@
 package ru.vmochalov.memegenerator.ui.imageselection
 
 import android.view.View
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,25 +21,16 @@ import ru.vmochalov.memegenerator.ui.common.Screen
  */
 class ImageSelectionScreen : Screen<ImageSelectionPm>() {
 
-    private val templatesAdapter = object : AsyncListDifferDelegationAdapter<TemplateItem>(
-        object : DiffUtil.ItemCallback<TemplateItem>() {
-            override fun areItemsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-                return oldItem.template.id == newItem.template.id
-            }
-
-            override fun areContentsTheSame(oldItem: TemplateItem, newItem: TemplateItem): Boolean {
-                return oldItem.template.url == newItem.template.url && oldItem.selected == newItem.selected
+    private val templatesAdapter =
+        object : AsyncListDifferDelegationAdapter<TemplateItem>(TemplateItemDiffUtilCallback()) {
+            init {
+                delegatesManager.addDelegate(
+                    TemplatesAdapterDelegate {
+                        presentationModel.templateSelectedClicks.consumer.accept(it)
+                    }
+                )
             }
         }
-    ) {
-        init {
-            delegatesManager.addDelegate(
-                TemplatesAdapterDelegate {
-                    presentationModel.templateSelectedClicks.consumer.accept(it)
-                }
-            )
-        }
-    }
 
     override val screenLayout = R.layout.screen_template_selection
 
@@ -69,7 +59,6 @@ class ImageSelectionScreen : Screen<ImageSelectionPm>() {
                 presentationModel.retryClicks
             )
         }
-
     }
 
     private fun bindSelectedTemplate(template: MemeTemplate) {
