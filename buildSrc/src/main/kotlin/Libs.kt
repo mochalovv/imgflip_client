@@ -11,13 +11,26 @@ object Libs {
 
         const val recyclerview = "androidx.recyclerview:recyclerview:1.0.0"
 
-        const val core = "androidx.core:core-ktx:1.1.0"
+        const val core = "androidx.core:core-ktx:1.2.0-beta01"
+    }
 
-        object Test {
-            const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
-            const val runner = "androidx.test:runner:1.2.0"
-            const val instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        }
+    object AndroidMaterial {
+        const val material = "com.google.android.material:material:1.1.0-beta01"
+    }
+
+    object Rx {
+        const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
+
+        const val rxBinding = "com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1"
+        const val rxRelay = "com.jakewharton.rxrelay2:rxrelay:2.1.1"
+    }
+
+    object Koin {
+        const val koinAndroid = "org.koin:koin-android:2.0.1"
+    }
+
+    object RxPm {
+        const val rxPm = "me.dmdev.rxpm:rxpm:2.0"
     }
 
     object Kotlin {
@@ -28,6 +41,19 @@ object Libs {
 
     object OkHttp {
         const val okhttp = "com.squareup.okhttp3:okhttp:4.2.0"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.10.0"
+    }
+
+    object Images {
+        const val glide = "com.github.bumptech.glide:glide:4.10.0"
+    }
+
+    object Lists {
+        const val adapterDelegates = "com.hannesdorfmann:adapterdelegates4:4.2.0"
+    }
+
+    object RxPermissions {
+        const val rxPermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
     }
 
     object Retrofit {
@@ -36,56 +62,17 @@ object Libs {
         const val converterMoshi = "com.squareup.retrofit2:converter-moshi:$version"
         const val converterScalars = "com.squareup.retrofit2:converter-scalars:$version"
         const val adapterRxJava = "com.squareup.retrofit2:adapter-rxjava2:$version"
-
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.10.0"
-
-
-//        const val
-//        // Networking
-//        implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
-//        implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-//        implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
-//
-
     }
-
-//    const val RETROFIT = "com.squareup.retrofit2:retrofit:${LibraryVersion.RETROFIT}"
-//    const val RETROFIT_MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${LibraryVersion.RETROFIT}"
-//    const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.LOGGING_INTERCEPTOR}"
 
     object Moshi {
         private const val version = "1.6.0"
 
         const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
         const val moshiAdapters = "com.squareup.moshi:moshi-adapters:$version"
-//        const val moshiKotlin
-        // Json
-//        implementation "com.squareup.moshi:moshi-kotlin:1.6.0"
-//        implementation "com.squareup.moshi:moshi-adapters:1.6.0"
-
     }
 
     object Timber {
         const val timber = "com.jakewharton.timber:timber:4.7.1"
-    }
-
-    object Dagger {
-        private const val version = "2.24"
-
-        const val dagger = "com.google.dagger:dagger:$version"
-
-//        val daggerAndroid = "com.google.dagger:dagger-android:$version"
-//        val daggerAndroidSupport =
-//            "com.google.dagger:dagger-android-support:$version" // if you use the support libraries
-
-        const val annotationProcessor =
-            "com.google.dagger:dagger-android-processor:$version" //annotationProcessor 'com.google.dagger:dagger-android-processor:2.x'
-    }
-
-    object JUnit {
-        const val junit = "junit:junit:4.12"
     }
 
 }

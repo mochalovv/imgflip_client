@@ -17,7 +17,6 @@ android {
         targetSdkVersion(Versions.Build.targetSdkVersion)
         versionCode = Versions.Application.versionCode
         versionName = Versions.Application.versionName
-        testInstrumentationRunner = Libs.AndroidX.Test.instrumentationRunner
 
         buildConfigField("String", "API_BASE_URL", "\"https://api.imgflip.com/\"")
         buildConfigField("String", "API_LOGIN", "\"mochalovv\"")
@@ -47,37 +46,29 @@ dependencies {
     implementation(Libs.AndroidX.recyclerview)
     implementation(Libs.AndroidX.core)
 
-    implementation("com.google.android.material:material:1.1.0-beta01")
+    implementation(Libs.AndroidMaterial.material)
 
-    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
+    implementation(Libs.Rx.rxKotlin)
+    implementation(Libs.Rx.rxBinding)
+    implementation(Libs.Rx.rxRelay)
 
-    implementation("org.koin:koin-android:2.0.1")
-    implementation("com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1")
+    implementation(Libs.Koin.koinAndroid)
 
-    implementation("com.jakewharton.rxrelay2:rxrelay:2.1.1")
+    implementation(Libs.RxPm.rxPm)
 
-    // RxPM
-    implementation("me.dmdev.rxpm:rxpm:2.0")
+    implementation(Libs.Images.glide)
 
-    // Images
-    implementation("com.github.bumptech.glide:glide:4.10.0")
+    implementation(Libs.Lists.adapterDelegates)
 
-    // Lists
-    implementation("com.hannesdorfmann:adapterdelegates4:4.2.0")
-
-    implementation("androidx.core:core-ktx:1.2.0-beta01")
-
-    // RxPermissions
-    implementation("com.github.tbruyelle:rxpermissions:0.10.2")
+    implementation(Libs.RxPermissions.rxPermissions)
 
     implementation(Libs.OkHttp.okhttp)
+    implementation(Libs.OkHttp.loggingInterceptor)
 
     implementation(Libs.Retrofit.retrofit)
     implementation(Libs.Retrofit.converterMoshi)
     implementation(Libs.Retrofit.converterScalars)
     implementation(Libs.Retrofit.adapterRxJava)
-
-    implementation(Libs.Retrofit.loggingInterceptor)
 
     implementation(Libs.Timber.timber)
 
